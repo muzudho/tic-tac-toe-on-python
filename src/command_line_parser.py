@@ -29,6 +29,17 @@ class CommandLineParser():
         return len2 <= self.len and self.line[self.starts:len2] == expected
 
     def go_next_to(self, expected: str):
+        """カーソルを進めるぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from command_line_parser import CommandLineParser
+        >>> log = Log()
+        >>> p = CommandLineParser('Go to the Moon!')
+        >>> log.print(f"p.starts=|{p.starts}|")
+        p.starts=|0|
+        >>> p.go_next_to('Go to')
+        >>> log.print(f"p.starts=|{p.starts}|")
+        p.starts=|5|
+        """
         self.starts += len(expected)
 
     def rest(self):
