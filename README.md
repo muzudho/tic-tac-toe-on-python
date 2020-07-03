@@ -15,11 +15,11 @@ It is difficult to compare the behavior. Instead, it is useful to get the logs a
 The first thing you have to create is your motive.  
 It is important to start with the appearance.  
 
-* [ ] Look and Model. (You can code in 4 hours)
+* [x] Look and Model. (You can code in 4 hours)
   * [x] Piece - "O", "X".
   * [x] Game result - Win/Draw/Lose.
   * [x] Position - It's the board.
-  * [ ] Search - Computer player search info.
+  * [x] Search - Computer player search info.
 
 Let's enter commands into the computer. Create a command line parser.  
 
