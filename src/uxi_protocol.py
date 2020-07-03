@@ -1,3 +1,5 @@
+import copy
+from enum import Enum
 from log import Log
 from look_and_model import Piece, Position
 from position import PositionHelper
@@ -59,94 +61,102 @@ class UxiProtocol():
 
         return xfen
 
-    """
-    // / xfen を board に変換するぜ☆（＾～＾）
-    pub fn from_xfen(xfen: & str) -> Option < Position > {
-        if !xfen.starts_with("xfen ") {
-            return None; }
+    @staticmethod
+    def from_xfen(xfen: str, log: "Log"):
+        """xfen を board に変換するぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position
+        >>> from uxi_protocol import UxiProtocol
+        >>> log = Log()
+        >>> pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
+        >>> pos.pos(log)
 
-        let mut pos = Position:: default();
+        Returns
+        -------
+        "Position"
+            または None
+        """
+        if not xfen.startswith("xfen "):
+            return None
 
-        // 文字数☆（＾～＾）
-        let mut starts = 0usize;
-        // 番地☆（＾～＾） 0 は未使用☆（＾～＾）
-        // 7 8 9
-        // 4 5 6
-        // 1 2 3
-        let mut addr = 7;
+        pos = Position()
 
-        # [derive(Debug)]
-        enum MachineState {
-            // / 最初☆（＾～＾）
-            Start,
-            // / 初期局面の盤上を解析中☆（＾～＾）
-            StartingBoard,
-            // / 手番の解析中☆（＾～＾）
-            Phase,
-            // / ` moves ` 読取中☆（＾～＾）
-            MovesLabel,
-            // / 棋譜の解析中☆（＾～＾）
-            Moves,
-        }
-        let mut machine_state = MachineState:: Start;
-        // Rust言語では文字列に配列のインデックスを使ったアクセスはできないので、
-        // 一手間かけるぜ☆（＾～＾）
-        for (i, ch) in xfen.chars().enumerate() {
-            match machine_state {
-                MachineState: : Start = > {
-                    if i + 1 == "xfen ".len() {
-                        // 先頭のキーワードを読み飛ばしたら次へ☆（＾～＾）
-                        machine_state = MachineState: : StartingBoard;                     }
-                }
-                MachineState: : StartingBoard = > match ch {
-                    'x' = > {
-                        pos.starting_board[addr] = Some(Piece:: Cross);
-                        pos.pieces_num += 1;
-                        addr += 1; }
-                    'o' = > {
-                        pos.starting_board[addr] = Some(Piece:: Nought);
-                        pos.pieces_num += 1;
-                        addr += 1; }
-                    '1' = > addr += 1,
-                    '2' = > addr += 2,
-                    '3' = > addr += 3,
-                    '/' = > addr -= 6,
-                    ' ' = > {
-                        // 明示的にクローン☆（＾～＾）
-                        pos.board = pos.starting_board.clone();
-                        machine_state = MachineState: : Phase;                     }
-                    _ = > {
-                        Log:: println(&format!("Error   | xfen starting_board error: {}", ch));
-                        return None; }
-                },
-                MachineState: : Phase = > {
-                    match ch {
-                        'x' = > {
-                            pos.friend = Piece: : Cross;                         }
-                        'o' = > {
-                            pos.friend = Piece: : Nought;                         }
-                        _ = > {
-                            Log:: println(&format!("Error   | xfen phase error: {}", ch));
-                            return None; }
-                    }
-                    // 一時記憶。
-                    starts = i;
-                    machine_state = MachineState: : MovesLabel;                 }
-                MachineState: : MovesLabel = > {
-                    if starts + " moves ".len() <= i {
-                        machine_state = MachineState: : Moves;                     }
-                }
-                MachineState: : Moves = > {
-                    if ch == ' ' {
-                    } else {
-                        pos.do_(&ch.to_string()); }
-                }
-            }
-        }
+        # 文字数☆（＾～＾）
+        starts = 0
 
-        Some(pos)
-    }
-    """
+        # 番地☆（＾～＾） 0 は未使用☆（＾～＾）
+        # 7 8 9
+        # 4 5 6
+        # 1 2 3
+        addr = 7
+
+        class MachineState(Enum):
+            # 最初☆（＾～＾）
+            START = 1
+            # 初期局面の盤上を解析中☆（＾～＾）
+            STARTING_BOARD = 2
+            # 手番の解析中☆（＾～＾）
+            PHASE = 3
+            # ` moves ` 読取中☆（＾～＾）
+            MOVES_LABEL = 4
+            # 棋譜の解析中☆（＾～＾）
+            MOVES = 5
+
+        machine_state = MachineState.START
+        # 1文字ずつ舐めていくぜ☆（＾～＾）
+        for (i, ch) in enumerate(xfen):
+            if machine_state == MachineState.START:
+                if i + 1 == len("xfen "):
+                    # 先頭のキーワードを読み飛ばしたら次へ☆（＾～＾）
+                    machine_state = MachineState.STARTING_BOARD
+
+            elif machine_state == MachineState.STARTING_BOARD:
+                if ch == 'x':
+                    pos.starting_board[addr] = Piece.CROSS
+                    pos.pieces_num += 1
+                    addr += 1
+                elif ch == 'o':
+                    pos.starting_board[addr] = Piece.NOUGHT
+                    pos.pieces_num += 1
+                    addr += 1
+                elif ch == '1':
+                    addr += 1
+                elif ch == '2':
+                    addr += 2
+                elif ch == '3':
+                    addr += 3
+                elif ch == '/':
+                    addr -= 6
+                elif ch == ' ':
+                    # 明示的にクローン☆（＾～＾）
+                    pos.board = copy.deepcopy(pos.starting_board)
+                    machine_state = MachineState.PHASE
+                else:
+                    log.print(f'Error   | xfen starting_board error: {ch}')
+                    return None
+
+            elif machine_state == MachineState.PHASE:
+                if ch == 'x':
+                    pos.friend = Piece.CROSS
+                elif ch == 'o':
+                    pos.friend = Piece.NOUGHT
+                else:
+                    log.print(f'Error   | xfen phase error: {ch}')
+                    return None
+
+                # 一時記憶。
+                starts = i
+                machine_state = MachineState.MOVES_LABEL
+
+            elif machine_state == MachineState.MOVES_LABEL:
+                if starts + len(" moves ") <= i:
+                    machine_state = MachineState.MOVES
+
+            elif machine_state == MachineState.MOVES:
+                if ch != ' ':
+                    UxiProtocol.do(pos, ch, log)
+
+        return pos
 
     @staticmethod
     def do(pos: "Position", arg_str: str, log: "Log"):
