@@ -16,9 +16,9 @@ The first thing you have to create is your motive.
 It is important to start with the appearance.  
 
 * [ ] Look and Model.
-  * [ ] Piece - "O", "X".
-  * [ ] Game result - Win/Draw/Lose.
-  * [ ] Position - It's the board.
+  * [x] Piece - "O", "X".
+  * [x] Game result - Win/Draw/Lose.
+  * [x] Position - It's the board.
   * [ ] Search - Computer player search info.
 
 Let's enter commands into the computer. Create a command line parser.  

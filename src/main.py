@@ -1,5 +1,5 @@
 from log import Log
-from look_and_model import Piece, GameResult, Position
+from look_and_model import Piece, GameResult, Position, Search
 
 log = Log()
 log.clear()
@@ -14,3 +14,7 @@ log.print(f'Lose  =|{GameResult.LOSE}|')
 
 pos = Position()
 pos.pos(log)
+
+search = Search(pos.friend, pos.pieces_num, True)
+log.print(f'pv=|{search.pv(pos)}|')
+Search.info_header(pos, log)

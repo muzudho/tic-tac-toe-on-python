@@ -1,4 +1,5 @@
 from enum import Enum
+import time
 
 
 class Piece(Enum):
@@ -113,6 +114,15 @@ class Position():
         >>> from look_and_model import Position
         >>> pos = Position()
         >>> pos.pos()
+        [Next 1 move(s) | Go o]
+
+        +---+---+---+
+        |   |   |   | マスを選んでください。例 `do 7`
+        +---+---+---+
+        |   |   |   |    7 8 9
+        +---+---+---+    4 5 6
+        |   |   |   |    1 2 3
+        +---+---+---+
         """
 
         def cell(index: int):
@@ -147,3 +157,70 @@ class Position():
                 cell(2),
                 cell(3)
             ))
+
+
+class Search():
+    """探索部☆（＾～＾）"""
+
+    def __init__(self, friend: "Piece", start_pieces_num: int, info_enable: bool):
+        """初期値
+        Parameters
+        ----------
+        friend :
+            この探索を始めたのはどっち側か☆（＾～＾）
+        start_pieces_num :
+            この探索を始めたときに石はいくつ置いてあったか☆（＾～＾）
+        info_enable :
+            info の出力の有無
+        """
+
+        self.start_friend = friend
+        self.start_pieces_num = start_pieces_num
+        """探索した状態ノード数☆（＾～＾）"""
+        self.nodes = 0
+        """この構造体を生成した時点からストップ・ウォッチを開始するぜ☆（＾～＾）
+        [Stopwatch In Python](https://stackoverflow.com/questions/5890304/stopwatch-in-python)
+        """
+        self.stopwatch = time.time()
+        self.info_enable = True
+
+    # TODO go()
+
+    def pv(self, pos: "Position"):
+        """Principal variation.
+        >>> from log import Log
+        >>> from look_and_model import Position, Search
+        >>> log = Log()
+        >>> pos = Position()
+        >>> search = Search(pos.friend,pos.pieces_num,True)
+        >>> log.print(f'pv={search.pv(pos)}')
+        pv=||
+
+        Returns
+        -------
+        str
+            今読んでる読み筋☆（＾～＾）
+        """
+
+        pv = ""
+        for t in range(self.start_pieces_num, pos.pieces_num):
+            pv += f'{pos.history[t]} '
+        return pv.rstrip()
+
+    @staticmethod
+    def info_header(pos: "Position", log: "Log"):
+        """ヘッダー☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position, Search
+        >>> log = Log()
+        >>> pos = Position()
+        >>> Search.info_header(pos,log)
+        info nps ...... nodes ...... pv O X O X O X O X O
+
+        """
+        if pos.friend == Piece.NOUGHT:
+            log.print('info nps ...... nodes ...... pv O X O X O X O X O\n')
+        elif pos.friend == Piece.CROSS:
+            log.print('info nps ...... nodes ...... pv X O X O X O X O X\n')
+        else:
+            raise ValueError(f'Invalid friend=|{pos.friend}|')
