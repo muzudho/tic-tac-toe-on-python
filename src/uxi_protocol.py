@@ -58,8 +58,7 @@ class UxiProtocol():
 
         return xfen
 
-
-"""
+    """
     // / xfen を board に変換するぜ☆（＾～＾）
     pub fn from_xfen(xfen: & str) -> Option < Position > {
         if !xfen.starts_with("xfen ") {
@@ -146,51 +145,60 @@ class UxiProtocol():
 
         Some(pos)
     }
+    """
 
-    // / 未来へ駒を置く
-    // / 最初は、合法か判定せずに　とりあえず動かせだぜ☆（＾～＾）
-    // /
-    // /  # Arguments
-    // /
-    // / * `line` - コマンドラインの残り。ここでは駒を置く場所。 `1` とか `7` など。
-    pub fn do_( & mut self, line: & str) {
-        // Log:: println(&format("Trace   | do_ line={}", line));
-        let addr: usize = match line.parse() {
-            Ok(x) = > x,
-            Err(_x) = > {
-                Log:: println(&format!(
-                    "Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 入力=|{}|",
-                    line
-                ));
-                return; }
-        };
+    '''
+    @staticmethod
+    def do(pos: "Position", line: str, log: "Log"):
+        """未来へ駒を置くぜ☆（＾～＾） 最初は、合法手判定や勝敗判定をせずに　とりあえず動かせだぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position
+        >>> from uxi_protocol import UxiProtocol
+        >>> log = Log()
+        >>> pos = Position()
+        >>> uxi = UxiProtocol()
+        >>> log.print(f"xfen=|{uxi.to_xfen(pos)}|")
+        xfen=|xfen 3/3/3 o|
 
-        // 合法手チェック☆（＾～＾）
-        // 移動先のマスに駒があってはダメ☆（＾～＾）
-        if addr < 1 | | 9 < addr {
-            Log:: println(&format!(
-                "Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={}",
-                addr
-            ));
-            return; } else if let Some(_piece_val) = self.board[addr as usize] {
-            Log:: println(&format!(
-                "Error   | 移動先のマスに駒があってはダメだぜ☆（＾～＾） 番地={}",
-                addr
-            ));
-            return; }
+        Parameters
+        ----------
+        line :
+            コマンドラインの残り。ここでは駒を置く場所。 `1` とか `7` など。
+        log :
+            ロガー。
+        """
+        try:
+            addr = int(line)
+        except ValueError:
+            log.print(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 入力=|{line}|')
+            return
 
-        self.do_move(addr);
+        """
+        # 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
+        if addr < 1 or 9 < addr:
+            log.print(f'Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={addr}')
+            return
+        elif pos.board[addr] is not None:
+            log.print(f'Error   | 移動先のマスに駒があってはダメだぜ☆（＾～＾） 番地={addr}')
+            return
+        """
 
-        // 勝ち負け判定☆（*＾～＾*）
-        if self.is_opponent_win() {
-            Log: : println(&format!("win {}", self.friend));         } else if self.is_draw() {
-            Log: : println(&format!("draw"));         }
-    }
+        # pos.do_move(addr)
 
+        """
+        # 勝ち負け判定☆（*＾～＾*）
+        if pos.is_opponent_win():
+            log.print(f'win {pos.friend}')
+        elif pos.is_draw():
+            log.print(f'draw')
+        """
+    '''
+
+    """
     // / 未来の駒を１つ戻す
     pub fn undo(& mut self) {
         self.undo_move(); }
 
 
-}
-"""
+    }
+    """

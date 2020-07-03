@@ -15,15 +15,23 @@ It is difficult to compare the behavior. Instead, it is useful to get the logs a
 The first thing you have to create is your motive.  
 It is important to start with the appearance.  
 
-* [x] Look and Model. (You can code in 4 hours)
+* [x] 'look_and_model.py' (You can code in 4 hours)
   * [x] Piece - "O", "X".
   * [x] Game result - Win/Draw/Lose.
   * [x] Position - It's the board.
   * [x] Search - Computer player search info.
 
+If you want to play immediately, you have the talent of a game creator.  
+Being able to control your position means being able to play.  
+
+* [x] 'position.py' (You can code in 15 minutes)
+  * [x] do_move
+  * [x] undo_move
+  * [x] opponent
+
 Let's enter commands into the computer. Create a command line parser.  
 
-* [x] Command line parser. (You can code in 40 minutes)
+* [x] 'command_line_parser.py' (You can code in 40 minutes)
   * [x] Input.
   * [x] Starts with.
   * [x] Go next to.
@@ -32,15 +40,15 @@ Let's enter commands into the computer. Create a command line parser.
 People who are looking for something 10 minutes a day are looking for something for a week in a year.  
 Before creating the game itself, let's first create the replay function. Let's get it for a week.  
 
-* [ ] UXI protocol.
+* [ ] 'uxi_protocol.py'
   * [x] To XFEN.
+  * [ ] Do. (Before 'From XFEN')
   * [ ] From XFEN.
-  * [ ] Do.
   * [ ] Undo.
 
 Let's make a principal command.
 
-* [ ] Main.
+* [ ] 'main.py'
   * [ ] position.
   * [ ] pos.
   * [ ] do.
@@ -49,19 +57,19 @@ Let's make a principal command.
 
 Before you make a computer player, let's judge the outcome. And let's test.  
 
-* [ ] Win/lose judgment.
+* [ ] 'win_lose_judgment.py'
   * [ ] Win.
   * [ ] Draw - Not win, not lose, can not play.
   * [ ] Lose.
 
 Before creating a computer player, let's create a mechanism to measure performance.  
 
-* [ ] Performance measurement.
+* [ ] 'performance_measurement.py'
   * [ ] Node per second.
 
 Finally, let's make a computer player.
 
-* [ ] Computer player.
+* [ ] 'computer_player.py'
   * [ ] Search.
   * [ ] Evaluation.
   * [ ] Create "go" command.
