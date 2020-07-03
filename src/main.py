@@ -1,6 +1,7 @@
 from log import Log
 from look_and_model import Piece, GameResult, Position, Search
 from command_line_parser import CommandLineParser
+from uxi_protocol import UxiProtocol
 
 log = Log()
 log.clear()
@@ -31,3 +32,6 @@ log.print(f"p.rest=|{p.rest}|")
 p.go_next_to('Go to')
 log.print(f"p.starts=|{p.starts}|")
 log.print(f"p.rest=|{p.rest}|")
+
+uxi = UxiProtocol()
+log.print(f"xfen=|{uxi.to_xfen(pos)}|")

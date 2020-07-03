@@ -23,21 +23,20 @@ It is important to start with the appearance.
 
 Let's enter commands into the computer. Create a command line parser.  
 
-* [ ] Command line parser.
-  * [ ] Input.
-  * [ ] Starts with.
-  * [ ] Go next to.
-  * [ ] Rest.
+* [x] Command line parser. (You can code in 40 minutes)
+  * [x] Input.
+  * [x] Starts with.
+  * [x] Go next to.
+  * [x] Rest.
 
 People who are looking for something 10 minutes a day are looking for something for a week in a year.  
 Before creating the game itself, let's first create the replay function. Let's get it for a week.  
 
 * [ ] UXI protocol.
-  * [ ] Starting board.
-  * [ ] Player phase.
-  * [ ] Moves.
-  * [ ] To xfen.
-  * [ ] From xfen.
+  * [x] To XFEN.
+  * [ ] From XFEN.
+  * [ ] Do.
+  * [ ] Undo.
 
 Let's make a principal command.
 
