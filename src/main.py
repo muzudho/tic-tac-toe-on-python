@@ -1,5 +1,5 @@
 from log import Log
-from look_and_model import Piece, GameResult
+from look_and_model import Piece, GameResult, Position
 
 log = Log()
 log.clear()
@@ -11,3 +11,6 @@ log.print(f'Cross =|{Piece.CROSS}|')
 log.print(f'Win   =|{GameResult.WIN}|')
 log.print(f'Draw  =|{GameResult.DRAW}|')
 log.print(f'Lose  =|{GameResult.LOSE}|')
+
+pos = Position()
+pos.pos(log)
