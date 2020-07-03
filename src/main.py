@@ -4,10 +4,12 @@ from position import PositionHelper
 from command_line_parser import CommandLineParser
 from uxi_protocol import UxiProtocol
 
+# しょっぱなにプログラムが壊れてないかテストしているぜ☆（＾～＾）
+# こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
 log = Log()
 log.clear()
-log.print("Hello!\n")
-log.write("World!\n")
+log.print('Hello!\n')
+log.write('World!\n')
 
 log.print(f'Nought=|{Piece.NOUGHT}|')
 log.print(f'Cross =|{Piece.CROSS}|')
@@ -50,3 +52,78 @@ pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
 pos.pos(log)
 UxiProtocol.undo(pos)
 pos.pos(log)
+
+# TODO test_win_lose_judgement()
+
+
+def main():
+    """最初に実行する主な関数だと思ってくれだぜ☆（＾～＾）"""
+
+    # 説明を出そうぜ☆（＾～＾）
+    log = Log()
+    log.clear()
+
+    # 最初は全部のコマンドを実装できないが、だんだん増やしていけだぜ☆（＾～＾）
+    log.print("""きふわらべの〇×ゲーム
+
+コマンド:
+`do 7` - 手番のプレイヤーが、 7 番地に印を付けます。
+`go` - コンピューターが次の1手を示します。
+`info-off` - info出力なし。
+`info-on` - info出力あり(既定)。
+`pos` - 局面表示。
+`position xfen 3/3/3 o moves 5 1 2 8 4 6 3 7 9` - 初期局面と棋譜を入力。
+`undo` - 1手戻します。
+`xfen` - 現局面のxfen文字列表示。
+""")
+
+    # 初期局面
+    pos = Position()
+    # TODO info_enable = True
+
+    # [Ctrl]+[C] でループを終了
+    while True:
+        # まず最初に、コマンドライン入力を待機しろだぜ☆（＾～＾）
+        line = input()
+
+        # コマンドライン☆（＾～＾） p は parser の意味で使ってるぜ☆（＾～＾）
+        p = CommandLineParser(line)
+
+        # 本当は よく使うコマンド順に並べた方が高速だが、先に見つけた方が選ばれるので後ろの方を漏らしやすくて むずかしいし、
+        # だから、アルファベット順に並べた方が見やすいぜ☆（＾～＾）
+        if p.starts_with('do'):
+            p.go_next_to('do ')
+            if p.rest != '':
+                UxiProtocol.do(pos, p.rest, log)
+
+            """ TODO go は後回し☆（＾～＾）
+            else if p.starts_with("go"):
+                search = Search: : new(pos.friend, pos.pieces_num, info_enable)
+                let (addr, result) = search.go(& mut pos)
+                        if let Some(addr) = addr {
+                    Log:: println(&format!("info result={:?}", result))
+                    Log: : println(&format!("bestmove {}", addr))
+                        } else {
+                    Log: : println("resign")
+                        }
+            elif p.starts_with('info-off'):
+                info_enable = False
+            elif p.starts_with('info-on'):
+                info_enable = True
+            """
+
+        elif p.starts_with('position'):
+            p.go_next_to('position ')
+            if p.rest != '':
+                pos = UxiProtocol.from_xfen(p.rest, log)
+        elif p.starts_with('pos'):
+            pos.pos(log)
+        elif p.starts_with('undo'):
+            UxiProtocol.undo(pos)
+        elif p.starts_with('xfen'):
+            log.print(UxiProtocol.to_xfen(pos))
+        else:
+            log.print(f'Debug   | Invalid command=|{p.rest}|')
+
+
+main()

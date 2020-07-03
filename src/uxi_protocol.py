@@ -54,9 +54,9 @@ class UxiProtocol():
         xfen += f' {pos.friend}'
 
         # Moves
-        if 0 < pos.pieces_num:
+        if 0 < pos.pieces_num - pos.starting_pieces_num:
             xfen += ' moves'
-            for i in range(0, pos.pieces_num):
+            for i in range(pos.starting_pieces_num, pos.pieces_num):
                 xfen += f' {pos.history[i]}'
 
         return xfen
@@ -123,10 +123,12 @@ class UxiProtocol():
 
             elif machine_state == MachineState.STARTING_BOARD:
                 if ch == 'x':
+                    # 手番の順ではないので、手番は分からないぜ☆（＾～＾）
                     pos.starting_board[addr] = Piece.CROSS
                     pos.pieces_num += 1
                     addr += 1
                 elif ch == 'o':
+                    # 手番の順ではないので、手番は分からないぜ☆（＾～＾）
                     pos.starting_board[addr] = Piece.NOUGHT
                     pos.pieces_num += 1
                     addr += 1
@@ -141,6 +143,7 @@ class UxiProtocol():
                 elif ch == ' ':
                     # 明示的にクローン☆（＾～＾）
                     pos.board = copy.deepcopy(pos.starting_board)
+                    pos.starting_pieces_num = pos.pieces_num
                     machine_state = MachineState.PHASE
                 else:
                     log.print(f'Error   | xfen starting_board error: {ch}')

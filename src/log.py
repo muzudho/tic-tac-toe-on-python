@@ -15,7 +15,7 @@ class Log:
         """表示かつ追加書込み。
         >>> from log import Log
         >>> log = Log()
-        >>> log.print("Hello!")
+        >>> log.print('Hello!')
         """
         print(contents)
         self.write(contents)
@@ -24,7 +24,7 @@ class Log:
         """追加書込み。
         >>> from log import Log
         >>> log = Log()
-        >>> log.write("World!")
+        >>> log.write('World!')
         """
         with open(self.file, mode='a') as f:
             f.write(contents)

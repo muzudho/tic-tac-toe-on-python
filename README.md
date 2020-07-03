@@ -42,7 +42,7 @@ Before creating the game itself, let's first create the replay function. Let's g
 
 * [x] 'uxi_protocol.py' (You can code in 1.5 hours)
   * [x] To XFEN.
-  * [x] Do. (Before 'From XFEN')
+  * [x] Do. (Before 'From XFEN') Excludes legal moves and winning/losing decisions.
   * [x] From XFEN.
   * [x] Undo.
 
@@ -72,4 +72,5 @@ Finally, let's make a computer player.
 * [ ] 'computer_player.py'
   * [ ] Search.
   * [ ] Evaluation.
+* [ ] 'main.py'
   * [ ] Create "go" command.
