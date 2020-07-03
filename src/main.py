@@ -3,6 +3,7 @@ from look_and_model import Piece, GameResult, Position, Search
 from position import PositionHelper
 from command_line_parser import CommandLineParser
 from uxi_protocol import UxiProtocol
+from win_lose_judgment import WinLoseJudgment
 
 # しょっぱなにプログラムが壊れてないかテストしているぜ☆（＾～＾）
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
@@ -53,7 +54,10 @@ pos.pos(log)
 UxiProtocol.undo(pos)
 pos.pos(log)
 
-# TODO test_win_lose_judgement()
+pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
+log.print(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
+pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
+log.print(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
 
 
 def main():

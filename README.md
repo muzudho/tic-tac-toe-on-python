@@ -46,28 +46,30 @@ Before creating the game itself, let's first create the replay function. Let's g
   * [x] From XFEN.
   * [x] Undo.
 
-Let's make a principal command.
+Let's make a principal command.  
 
-* [ ] 'main.py'
-  * [ ] position.
-  * [ ] pos.
-  * [ ] do.
-  * [ ] undo.
-  * [ ] xfen.
+* [x] 'main.py' (You can code in 1 hours)
+  * [x] position.
+  * [x] pos.
+  * [x] do.
+  * [x] undo.
+  * [x] xfen.
 
 Before you make a computer player, let's judge the outcome. And let's test.  
 
-* [ ] 'win_lose_judgment.py'
-  * [ ] Win.
-  * [ ] Draw - Not win, not lose, can not play.
-  * [ ] Lose.
+* [x] 'win_lose_judgment.py'
+  * [x] Win.
+  * [x] Draw - Not win, not lose, can not play.
+  * [-] Lose. - Not win is lose.
+* [ ] 'uxi_protocol.py' (You can code in 1.5 hours)
+  * [ ] Do. Winning/losing decisions.
 
 Before creating a computer player, let's create a mechanism to measure performance.  
 
 * [ ] 'performance_measurement.py'
   * [ ] Node per second.
 
-Finally, let's make a computer player.
+Finally, let's make a computer player.  
 
 * [ ] 'computer_player.py'
   * [ ] Search.
