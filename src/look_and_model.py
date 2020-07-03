@@ -239,10 +239,38 @@ class Search():
         nps = 0  # TODO self.nps()
         nodes = self.nodes
         pv = self.pv(pos)
-        friend = '+' if pos.friend == self.start_friend else '-'
+        friend_str = '+' if pos.friend == self.start_friend else '-'
         height = 'none    ' if SQUARES_NUM < pos.pieces_num + \
             1 else f'height {pos.pieces_num + 1}'
-        comment2 = f' {friend} "{comment}"' if comment != "" else ""
+        comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
 
         log.print(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend} [{addr}] | ->   to {height} |       |      |{comment2}\n')
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}\n')
+
+    def info_forward_leaf(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
+        """前向き探索で葉に着いたぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position, Search
+        >>> log = Log()
+        >>> pos = Position()
+        >>> search.info_forward_leaf(pos, 1, GameResult.WIN, 'Hello!', log)
+        info nps      0 nodes      0 pv                   | + [1] | .       height 0 |       | win  | + "Hello!"
+
+        開発中は nps はまだ未実装だろうから 0 にでもしておけだぜ☆（＾～＾）
+        """
+        nps = 0  # TODO self.nps()
+        nodes = self.nodes
+        pv = self.pv(pos)
+        friend_str = '+' if pos.friend == self.start_friend else '-'
+        height = 'none    ' if SQUARES_NUM < pos.pieces_num else f'height {pos.pieces_num}'
+        if result == GameResult.WIN:
+            result_str = ' win  '
+        elif result == GameResult.DRAW:
+            result_str = ' draw '
+        elif result == GameResult.LOSE:
+            result_str = ' lose '
+        else:
+            raise ValueError(f'Invalid GameResult={result}')
+        comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
+        log.print(
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}\n')
