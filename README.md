@@ -40,11 +40,11 @@ Let's enter commands into the computer. Create a command line parser.
 People who are looking for something 10 minutes a day are looking for something for a week in a year.  
 Before creating the game itself, let's first create the replay function. Let's get it for a week.  
 
-* [ ] 'uxi_protocol.py'
+* [x] 'uxi_protocol.py' (You can code in 1.5 hours)
   * [x] To XFEN.
   * [x] Do. (Before 'From XFEN')
   * [x] From XFEN.
-  * [ ] Undo.
+  * [x] Undo.
 
 Let's make a principal command.
 

@@ -70,6 +70,17 @@ class UxiProtocol():
         >>> log = Log()
         >>> pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
         >>> pos.pos(log)
+        >>> pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
+        >>> pos.pos(log)
+        [Next 10 move(s) | Go o]
+
+        +---+---+---+
+        | o | o | x | マスを選んでください。例 `do 7`
+        +---+---+---+
+        | x | x | x |    7 8 9
+        +---+---+---+    4 5 6
+        | x | o | o |    1 2 3
+        +---+---+---+
 
         Returns
         -------
@@ -193,7 +204,7 @@ class UxiProtocol():
             return
 
         """
-        # 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
+        # TODO 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
         if addr < 1 or 9 < addr:
             log.print(f'Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={addr}')
             return
@@ -205,18 +216,32 @@ class UxiProtocol():
         PositionHelper.do_move(pos, addr)
 
         """
-        # 勝ち負け判定☆（*＾～＾*）
+        # TODO 勝ち負け判定☆（*＾～＾*）
         if pos.is_opponent_win():
             log.print(f'win {pos.friend}')
         elif pos.is_draw():
             log.print(f'draw')
         """
 
-    """
-    // / 未来の駒を１つ戻す
-    pub fn undo(& mut self) {
-        self.undo_move(); }
+    @staticmethod
+    def undo(pos: "Position"):
+        """未来の駒を１つ戻すぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position
+        >>> from uxi_protocol import UxiProtocol
+        >>> log = Log()
+        >>> pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
+        >>> UxiProtocol.undo(pos)
+        >>> pos.pos(log)
+        [Next 9 move(s) | Go x]
 
+        +---+---+---+
+        | o | o | x | マスを選んでください。例 `do 7`
+        +---+---+---+
+        | x |   | x |    7 8 9
+        +---+---+---+    4 5 6
+        | x | o | o |    1 2 3
+        +---+---+---+
 
-    }
-    """
+        """
+        PositionHelper.undo_move(pos)
