@@ -224,3 +224,25 @@ class Search():
             log.print('info nps ...... nodes ...... pv X O X O X O X O X\n')
         else:
             raise ValueError(f'Invalid friend=|{pos.friend}|')
+
+    def info_forward(self, pos: "Position", addr: int, comment: str, log: "Log"):
+        """前向き探索中だぜ☆（＾～＾）
+        >>> from log import Log
+        >>> from look_and_model import Position, Search
+        >>> log = Log()
+        >>> pos = Position()
+        >>> search.info_forward(pos, 1, 'Hello!', log)
+        info nps      0 nodes      0 pv                   | + [1] | ->   to height 1 |       |      | + "Hello!"
+
+        開発中は nps はまだ未実装だろうから 0 にでもしておけだぜ☆（＾～＾）
+        """
+        nps = 0  # TODO self.nps()
+        nodes = self.nodes
+        pv = self.pv(pos)
+        friend = '+' if pos.friend == self.start_friend else '-'
+        height = 'none    ' if SQUARES_NUM < pos.pieces_num + \
+            1 else f'height {pos.pieces_num + 1}'
+        comment2 = f' {friend} "{comment}"' if comment != "" else ""
+
+        log.print(
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend} [{addr}] | ->   to {height} |       |      |{comment2}\n')
