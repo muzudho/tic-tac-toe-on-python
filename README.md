@@ -7,9 +7,10 @@
 During development, you may need to reproduce the behavior of your computer.  
 It is difficult to compare the behavior. Instead, it is useful to get the logs and compare the logs.  
 
-* [ ] Log.
-  * [ ] Write - Write to a file.
-  * [ ] Print - Write and display.
+* [x] 'log.py' (You can code in 10 minutes)
+  * [x] Clear - Log to empty.
+  * [x] Write - Write to a file.
+  * [x] Print - Write and display.
 
 The first thing you have to create is your motive.  
 It is important to start with the appearance.  
