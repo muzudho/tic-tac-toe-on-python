@@ -42,7 +42,7 @@ Before creating the game itself, let's first create the replay function. Let's g
 
 * [ ] 'uxi_protocol.py'
   * [x] To XFEN.
-  * [ ] Do. (Before 'From XFEN')
+  * [x] Do. (Before 'From XFEN')
   * [ ] From XFEN.
   * [ ] Undo.
 

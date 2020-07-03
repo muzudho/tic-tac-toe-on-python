@@ -42,3 +42,5 @@ log.print(f"p.rest=|{p.rest}|")
 
 uxi = UxiProtocol()
 log.print(f"xfen=|{uxi.to_xfen(pos)}|")
+uxi.do(pos, '2', log)
+pos.pos(log)

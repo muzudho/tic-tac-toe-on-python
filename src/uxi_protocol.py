@@ -1,5 +1,6 @@
 from log import Log
 from look_and_model import Piece, Position
+from position import PositionHelper
 
 
 class UxiProtocol():
@@ -147,9 +148,8 @@ class UxiProtocol():
     }
     """
 
-    '''
     @staticmethod
-    def do(pos: "Position", line: str, log: "Log"):
+    def do(pos: "Position", arg_str: str, log: "Log"):
         """未来へ駒を置くぜ☆（＾～＾） 最初は、合法手判定や勝敗判定をせずに　とりあえず動かせだぜ☆（＾～＾）
         >>> from log import Log
         >>> from look_and_model import Position
@@ -157,20 +157,29 @@ class UxiProtocol():
         >>> log = Log()
         >>> pos = Position()
         >>> uxi = UxiProtocol()
-        >>> log.print(f"xfen=|{uxi.to_xfen(pos)}|")
-        xfen=|xfen 3/3/3 o|
+        >>> uxi.do(pos, '2', log)
+        >>> pos.pos(log)
+        [Next 2 move(s) | Go x]
+
+        +---+---+---+
+        |   |   |   | マスを選んでください。例 `do 7`
+        +---+---+---+
+        |   |   |   |    7 8 9
+        +---+---+---+    4 5 6
+        |   | o |   |    1 2 3
+        +---+---+---+
 
         Parameters
         ----------
-        line :
+        arg_str :
             コマンドラインの残り。ここでは駒を置く場所。 `1` とか `7` など。
         log :
             ロガー。
         """
         try:
-            addr = int(line)
+            addr = int(arg_str)
         except ValueError:
-            log.print(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 入力=|{line}|')
+            log.print(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 引数=|{arg_str}|')
             return
 
         """
@@ -183,7 +192,7 @@ class UxiProtocol():
             return
         """
 
-        # pos.do_move(addr)
+        PositionHelper.do_move(pos, addr)
 
         """
         # 勝ち負け判定☆（*＾～＾*）
@@ -192,7 +201,6 @@ class UxiProtocol():
         elif pos.is_draw():
             log.print(f'draw')
         """
-    '''
 
     """
     // / 未来の駒を１つ戻す
