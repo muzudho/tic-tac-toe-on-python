@@ -1,9 +1,11 @@
+import time
 from log import Log
 from look_and_model import Piece, GameResult, Position, Search
 from position import PositionHelper
 from command_line_parser import CommandLineParser
 from uxi_protocol import UxiProtocol
 from win_lose_judgment import WinLoseJudgment
+from performance_measurement import SearchHelper
 
 # しょっぱなにプログラムが壊れてないかテストしているぜ☆（＾～＾）
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
@@ -59,6 +61,10 @@ pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
 log.print(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
 pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
 log.print(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
+
+time.sleep(1)
+log.print(f'sec={SearchHelper.sec(search)}')
+log.print(f'nps={SearchHelper.nps(search)}')
 
 
 def main():

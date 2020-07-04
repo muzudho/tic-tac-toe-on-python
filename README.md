@@ -57,17 +57,18 @@ Let's make a principal command.
 
 Before you make a computer player, let's judge the outcome. And let's test.  
 
-* [x] 'win_lose_judgment.py'
+* [x] 'win_lose_judgment.py' (You can code in 15 minutes)
   * [x] Win.
   * [x] Draw - Not win, not lose, can not play.
   * [-] Lose. - Not win is lose.
-* [ ] 'uxi_protocol.py' (You can code in 1.5 hours)
-  * [ ] Do. Winning/losing decisions.
+* [x] 'uxi_protocol.py' (You can code in 1.5 hours)
+  * [x] Do. Winning/losing decisions.
 
 Before creating a computer player, let's create a mechanism to measure performance.  
 
-* [ ] 'performance_measurement.py'
-  * [ ] Node per second.
+* [x] 'performance_measurement.py' (You can code in 15 minutes)
+  * [x] Seconds. - Stopwatch.
+  * [x] Node per second.
 
 Finally, let's make a computer player.  
 
