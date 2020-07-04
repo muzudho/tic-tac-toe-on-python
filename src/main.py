@@ -92,6 +92,7 @@ def main():
 `pos` - 局面表示。
 `position xfen 3/3/3 o moves 5 1 2 8 4 6 3 7 9` - 初期局面と棋譜を入力。
 `undo` - 1手戻します。
+`uxi` - 'tic-tac-toe' と返すだけ。
 `xfen` - 現局面のxfen文字列表示。
 """)
 
@@ -141,6 +142,8 @@ def main():
             pos.pos(log)
         elif p.starts_with('undo'):
             UxiProtocol.undo(pos)
+        elif p.starts_with('uxi'):
+            log.println('tic-tac-toe')
         elif p.starts_with('xfen'):
             log.println(UxiProtocol.to_xfen(pos))
         else:
