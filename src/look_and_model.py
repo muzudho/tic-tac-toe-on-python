@@ -249,7 +249,10 @@ class Search():
         friend_str = '+' if pos.friend == self.start_friend else '-'
         height = 'none    ' if SQUARES_NUM < pos.pieces_num + \
             1 else f'height {pos.pieces_num + 1}'
-        comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
+        if comment is not None:
+            comment_str = f' {friend_str} "{comment}"'
+        else:
+            comment_str = ""
 
         log.println(
             f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
@@ -276,7 +279,11 @@ class Search():
             result_str = ' lose '
         else:
             raise ValueError(f'Invalid GameResult={result}')
-        comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
+        if comment is not None:
+            comment_str = f' {friend_str} "{comment}"'
+        else:
+            comment_str = ""
+
         log.println(
             f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
 
@@ -302,6 +309,10 @@ class Search():
             result_str = ' lose '
         else:
             raise ValueError(f'Invalid GameResult={result}')
-        comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
+        if comment is not None:
+            comment_str = f' {friend_str} "{comment}"'
+        else:
+            comment_str = ""
+
         log.println(
             f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')
