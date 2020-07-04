@@ -27,12 +27,13 @@ pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
 
 search = Search(pos.friend, pos.pieces_num, True)
 log.println(f'pv=|{search.pv(pos)}|')
-Search.info_header(pos, log)
-search.info_forward(SearchPerformance.nps(search), pos, 1, 'Hello!', log)
-search.info_forward_leaf(SearchPerformance.nps(
-    search), pos, 1, GameResult.WIN, 'Hello!', log)
-search.info_backward(SearchPerformance.nps(search), pos,
-                     1, GameResult.WIN, 'Hello!', log)
+log.println(Search.info_header(pos))
+log.println(search.info_forward(
+    SearchPerformance.nps(search), pos, 1, 'Hello!'))
+log.println(search.info_forward_leaf(SearchPerformance.nps(
+    search), pos, 1, GameResult.WIN, 'Hello!'))
+log.println(search.info_backward(SearchPerformance.nps(search), pos,
+                                 1, GameResult.WIN, 'Hello!'))
 
 PositionHelper.do_move(pos, 1)
 log.println(pos.pos())

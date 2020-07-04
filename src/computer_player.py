@@ -42,7 +42,7 @@ class SearchComputer():
         "GameResult" :
         """
         if search.info_enable:
-            Search.info_header(pos, log)
+            log.println(Search.info_header(pos))
 
         return SearchComputer.node(pos, search, log)
 
@@ -75,47 +75,45 @@ class SearchComputer():
                     # 勝ったなら☆（＾～＾）
                     # 前向き探索情報を出して、置いた石は戻して、後ろ向き探索情報を出して、探索終了だぜ☆（＾～＾）
                     if search.info_enable:
-                        search.info_forward_leaf(
+                        log.println(search.info_forward_leaf(
                             SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.WIN,
                             "Hooray!",
-                            log
-                        )
+                        ))
                     PositionHelper.undo_move(pos)
                     if search.info_enable:
-                        search.info_backward(
+                        log.println(search.info_backward(
                             SearchPerformance.nps(search),
-                            pos, addr, GameResult.WIN, None, log)
+                            pos, addr, GameResult.WIN, None))
 
                     return (addr, GameResult.WIN)
                 elif SQUARES_NUM <= pos.pieces_num:
                     # 勝っていなくて、深さ上限に達したら、〇×ゲームでは 他に置く場所もないから引き分け確定だぜ☆（＾～＾）
                     # 前向き探索情報を出して、置いた石は戻して、後ろ向き探索情報を出して、探索終了だぜ☆（＾～＾）
                     if search.info_enable:
-                        search.info_forward_leaf(
+                        log.println(search.info_forward_leaf(
                             SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.DRAW,
                             "It's ok.",
-                            log
-                        )
+                        ))
 
                     PositionHelper.undo_move(pos)
                     if search.info_enable:
-                        search.info_backward(
+                        log.println(search.info_backward(
                             SearchPerformance.nps(search),
-                            pos, addr, GameResult.DRAW, None, log)
+                            pos, addr, GameResult.DRAW, None))
 
                     return (addr, GameResult.DRAW)
                 else:
                     # まだ続きがあるぜ☆（＾～＾）
                     if search.info_enable:
-                        search.info_forward(
+                        log.println(search.info_forward(
                             SearchPerformance.nps(search),
-                            pos, addr, "Search.", log)
+                            pos, addr, "Search."))
 
                 # 相手の番だぜ☆（＾～＾）
                 (_opponent_address, opponent_game_result) = SearchComputer.node(
@@ -127,21 +125,20 @@ class SearchComputer():
                 if opponent_game_result == GameResult.LOSE:
                     # 相手の負けなら、この手で勝ちだぜ☆（＾～＾）後ろ向き探索情報を出して、探索終わり☆（＾～＾）
                     if search.info_enable:
-                        search.info_backward(
+                        log.println(search.info_backward(
                             SearchPerformance.nps(search),
-                            pos, addr, GameResult.WIN, "Ok.", log)
+                            pos, addr, GameResult.WIN, "Ok."))
                     return (addr, GameResult.WIN)
                 elif opponent_game_result == GameResult.DRAW:
                     # 勝ち負けがずっと見えてないなら☆（＾～＾）後ろ向き探索情報を出して、探索を続けるぜ☆（＾～＾）
                     if search.info_enable:
-                        search.info_backward(
+                        log.println(search.info_backward(
                             SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.DRAW,
                             "Fmmm.",
-                            log
-                        )
+                        ))
                     if best_result == GameResult.LOSE:
                         # 更新
                         best_addr = addr
@@ -149,13 +146,12 @@ class SearchComputer():
                 elif opponent_game_result == GameResult.WIN:
                     # 相手が勝つ手を選んではダメだぜ☆（＾～＾）後ろ向き探索情報を出して、探索を続けるぜ☆（＾～＾）
                     if search.info_enable:
-                        search.info_backward(
+                        log.println(search.info_backward(
                             SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.LOSE,
                             "Resign.",
-                            log
-                        )
+                        ))
 
         return (best_addr, best_result)

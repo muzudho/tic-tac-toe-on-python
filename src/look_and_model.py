@@ -217,32 +217,36 @@ class Search():
         return pv.rstrip()
 
     @staticmethod
-    def info_header(pos: "Position", log: "Log"):
+    def info_header(pos: "Position"):
         """ヘッダー☆（＾～＾）
-        >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> log = Log()
         >>> pos = Position()
-        >>> Search.info_header(pos,log)
+        >>> print(Search.info_header(pos))
         info nps ...... nodes ...... pv O X O X O X O X O
 
+        Returns
+        -------
+        str:
+            info
         """
         if pos.friend == Piece.NOUGHT:
-            log.println('info nps ...... nodes ...... pv O X O X O X O X O')
+            return 'info nps ...... nodes ...... pv O X O X O X O X O'
         elif pos.friend == Piece.CROSS:
-            log.println('info nps ...... nodes ...... pv X O X O X O X O X')
+            return 'info nps ...... nodes ...... pv X O X O X O X O X'
         else:
             raise ValueError(f'Invalid friend=|{pos.friend}|')
 
-    def info_forward(self, nps: int, pos: "Position", addr: int, comment: str, log: "Log"):
+    def info_forward(self, nps: int, pos: "Position", addr: int, comment: str):
         """前向き探索中だぜ☆（＾～＾）
-        >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> log = Log()
         >>> pos = Position()
-        >>> search.info_forward(0, pos, 1, 'Hello!', log)
+        >>> println(search.info_forward(0, pos, 1, 'Hello!'))
         info nps      0 nodes      0 pv                   | + [1] | ->   to height 1 |       |      | + "Hello!"
 
+        Returns
+        -------
+        str:
+            info
         """
         nodes = self.nodes
         pv = self.pv(pos)
@@ -254,18 +258,19 @@ class Search():
         else:
             comment_str = ""
 
-        log.println(
-            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
+        return f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}'
 
-    def info_forward_leaf(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
+    def info_forward_leaf(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str):
         """前向き探索で葉に着いたぜ☆（＾～＾）
-        >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> log = Log()
         >>> pos = Position()
-        >>> search.info_forward_leaf(0, pos, 1, GameResult.WIN, 'Hello!', log)
+        >>> println(search.info_forward_leaf(0, pos, 1, GameResult.WIN, 'Hello!'))
         info nps      0 nodes      0 pv                   | + [1] | .       height 0 |       | win  | + "Hello!"
 
+        Returns
+        -------
+        str:
+            info
         """
         nodes = self.nodes
         pv = self.pv(pos)
@@ -284,18 +289,19 @@ class Search():
         else:
             comment_str = ""
 
-        log.println(
-            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
+        return f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}'
 
-    def info_backward(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
+    def info_backward(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str):
         """後ろ向き探索のときの表示だぜ☆（＾～＾）
-        >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> log = Log()
         >>> pos = Position()
-        >>> search.info_backward(0, pos, 1, GameResult.WIN, 'Hello!', log)
+        >>> println(search.info_backward(0, pos, 1, GameResult.WIN, 'Hello!'))
         info nps      0 nodes      0 pv                   |       | <- from height 0 | + [1] | win  | + "Hello!"
 
+        Returns
+        -------
+        str:
+            info
         """
         nodes = self.nodes
         pv = self.pv(pos)
@@ -314,5 +320,4 @@ class Search():
         else:
             comment_str = ""
 
-        log.println(
-            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')
+        return f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}'
