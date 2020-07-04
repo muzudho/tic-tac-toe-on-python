@@ -142,10 +142,10 @@ class SearchComputer():
                             "Fmmm.",
                             log
                         )
-                elif opponent_game_result == GameResult.LOSE:
-                    # 更新
-                    best_addr = addr
-                    best_result = GameResult.DRAW
+                    if best_result == GameResult.LOSE:
+                        # 更新
+                        best_addr = addr
+                        best_result = GameResult.DRAW
                 elif opponent_game_result == GameResult.WIN:
                     # 相手が勝つ手を選んではダメだぜ☆（＾～＾）後ろ向き探索情報を出して、探索を続けるぜ☆（＾～＾）
                     if search.info_enable:
