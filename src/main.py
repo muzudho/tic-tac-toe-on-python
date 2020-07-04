@@ -20,6 +20,7 @@ log.print(f'Lose  =|{GameResult.LOSE}|')
 
 pos = Position()
 pos.pos(log)
+pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
 
 search = Search(pos.friend, pos.pieces_num, True)
 log.print(f'pv=|{search.pv(pos)}|')

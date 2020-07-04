@@ -1,7 +1,7 @@
 import copy
 from enum import Enum
 from log import Log
-from look_and_model import Piece, Position
+from look_and_model import GameResult, Piece, Position
 from position import PositionHelper
 from win_lose_judgment import WinLoseJudgment
 
@@ -220,10 +220,12 @@ class UxiProtocol():
         PositionHelper.do_move(pos, addr)
 
         # 勝ち負け判定☆（*＾～＾*）
+        # これは PositionHelper, WinLoseJudgment を作ってから実装しろだぜ☆（＾～＾）
         if WinLoseJudgment.is_opponent_win(pos):
-            log.print(f'win {pos.friend}')
+            pos.print_result(
+                GameResult.WIN, PositionHelper.opponent(pos), log)
         elif WinLoseJudgment.is_draw(pos):
-            log.print(f'draw')
+            pos.print_result(GameResult.DRAW, None, log)
 
     @staticmethod
     def undo(pos: "Position"):

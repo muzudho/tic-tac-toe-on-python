@@ -153,6 +153,18 @@ class Position():
                 cell(3)
             ))
 
+    def print_result(self, result: "GameResult", winner: "Piece", log: "Log"):
+        """着いていれば勝敗を表示するぜ☆（＾～＾） 負けが表示されるケースは無い☆（＾～＾）
+        >>> from look_and_model import Position
+        >>> pos = Position()
+        >>> pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
+        win o
+        """
+        if result == GameResult.WIN:
+            log.print(f'win {winner}')
+        elif result == GameResult.DRAW:
+            log.print(f'draw')
+
 
 class Search():
     """探索部☆（＾～＾）"""
