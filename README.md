@@ -2,6 +2,8 @@
 
 ○×ゲームだぜ☆（＾～＾）  
 
+* [Rust ver](https://github.com/muzudho/tic-tac-toe)
+
 ## How to make tic tac toe?
 
 During development, you may need to reproduce the behavior of your computer.  
