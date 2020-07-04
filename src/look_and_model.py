@@ -4,12 +4,10 @@ import time
 
 class Piece(Enum):
     """駒とか、石とか、そういうやつだぜ☆（＾～＾）
-    >>> from log import Log
     >>> from look_and_model import Piece
-    >>> log = Log()
-    >>> log.println(f'Nought=|{Piece.NOUGHT}|')
+    >>> print(f'Nought=|{Piece.NOUGHT}|')
     Nought=|o|
-    >>> log.println(f'Cross =|{Piece.CROSS}|')
+    >>> print(f'Cross =|{Piece.CROSS}|')
     Cross =|x|
     """
 
@@ -104,11 +102,11 @@ class Position():
         """盤の上に駒が何個置いてあるかだぜ☆（＾～＾）"""
         self.pieces_num = 0
 
-    def pos(self, log: "Log"):
+    def pos(self):
         """局面を表示するぜ☆（＾～＾）
         >>> from look_and_model import Position
         >>> pos = Position()
-        >>> pos.pos()
+        >>> print(pos.pos())
         [Next 1 move(s) | Go o]
 
         +---+---+---+
@@ -118,6 +116,11 @@ class Position():
         +---+---+---+    4 5 6
         |   |   |   |    1 2 3
         +---+---+---+
+
+        Returns
+        -------
+        str:
+            局面
         """
 
         def cell(index: int):
@@ -132,26 +135,25 @@ class Position():
             else:
                 return f" {self.board[index]} "
 
-        log.println(
-            f'[Next {self.pieces_num + 1} move(s) | Go {self.friend}]\n')
-        log.println(
-            """+---+---+---+
+        s = f'[Next {self.pieces_num + 1} move(s) | Go {self.friend}]\n'
+        s += """+---+---+---+
 |{0}|{1}|{2}| マスを選んでください。例 `do 7`
 +---+---+---+
 |{3}|{4}|{5}|    7 8 9
 +---+---+---+    4 5 6
 |{6}|{7}|{8}|    1 2 3
 +---+---+---+""".format(
-                cell(7),
-                cell(8),
-                cell(9),
-                cell(4),
-                cell(5),
-                cell(6),
-                cell(1),
-                cell(2),
-                cell(3)
-            ))
+            cell(7),
+            cell(8),
+            cell(9),
+            cell(4),
+            cell(5),
+            cell(6),
+            cell(1),
+            cell(2),
+            cell(3)
+        )
+        return s
 
     def print_result(self, result: "GameResult", winner: "Piece", log: "Log"):
         """着いていれば勝敗を表示するぜ☆（＾～＾） 負けが表示されるケースは無い☆（＾～＾）
@@ -232,18 +234,16 @@ class Search():
         else:
             raise ValueError(f'Invalid friend=|{pos.friend}|')
 
-    def info_forward(self, pos: "Position", addr: int, comment: str, log: "Log"):
+    def info_forward(self, nps: int, pos: "Position", addr: int, comment: str, log: "Log"):
         """前向き探索中だぜ☆（＾～＾）
         >>> from log import Log
         >>> from look_and_model import Position, Search
         >>> log = Log()
         >>> pos = Position()
-        >>> search.info_forward(pos, 1, 'Hello!', log)
+        >>> search.info_forward(0, pos, 1, 'Hello!', log)
         info nps      0 nodes      0 pv                   | + [1] | ->   to height 1 |       |      | + "Hello!"
 
-        開発中は nps はまだ未実装だろうから 0 にでもしておけだぜ☆（＾～＾）
         """
-        nps = 0  # TODO self.nps()
         nodes = self.nodes
         pv = self.pv(pos)
         friend_str = '+' if pos.friend == self.start_friend else '-'
@@ -252,20 +252,18 @@ class Search():
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
 
         log.println(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
+            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
 
-    def info_forward_leaf(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
+    def info_forward_leaf(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
         """前向き探索で葉に着いたぜ☆（＾～＾）
         >>> from log import Log
         >>> from look_and_model import Position, Search
         >>> log = Log()
         >>> pos = Position()
-        >>> search.info_forward_leaf(pos, 1, GameResult.WIN, 'Hello!', log)
+        >>> search.info_forward_leaf(0, pos, 1, GameResult.WIN, 'Hello!', log)
         info nps      0 nodes      0 pv                   | + [1] | .       height 0 |       | win  | + "Hello!"
 
-        開発中は nps はまだ未実装だろうから 0 にでもしておけだぜ☆（＾～＾）
         """
-        nps = 0  # TODO self.nps()
         nodes = self.nodes
         pv = self.pv(pos)
         friend_str = '+' if pos.friend == self.start_friend else '-'
@@ -280,20 +278,18 @@ class Search():
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
         log.println(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
+            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
 
-    def info_backward(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
+    def info_backward(self, nps: int, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
         """後ろ向き探索のときの表示だぜ☆（＾～＾）
         >>> from log import Log
         >>> from look_and_model import Position, Search
         >>> log = Log()
         >>> pos = Position()
-        >>> search.info_backward(pos, 1, GameResult.WIN, 'Hello!', log)
+        >>> search.info_backward(0, pos, 1, GameResult.WIN, 'Hello!', log)
         info nps      0 nodes      0 pv                   |       | <- from height 0 | + [1] | win  | + "Hello!"
 
-        開発中は nps はまだ未実装だろうから 0 にでもしておけだぜ☆（＾～＾）
         """
-        nps = 0  # TODO self.nps()
         nodes = self.nodes
         pv = self.pv(pos)
         height = 'none    ' if SQUARES_NUM < pos.pieces_num else f'height {pos.pieces_num}'
@@ -308,4 +304,4 @@ class Search():
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
         log.println(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')
+            f'info nps {nps: >6.0f} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')

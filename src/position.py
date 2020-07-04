@@ -13,7 +13,7 @@ class PositionHelper():
         >>> log = Log()
         >>> pos = Position()
         >>> PositionHelper.do_move(pos, 1)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         [Next 2 move(s) | Go x]
 
         +---+---+---+
@@ -47,7 +47,7 @@ class PositionHelper():
         >>> log = Log()
         >>> pos = Position()
         >>> PositionHelper.undo_move(pos, 1)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         [Next 1 move(s) | Go o]
 
         +---+---+---+

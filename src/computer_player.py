@@ -2,6 +2,7 @@
 from look_and_model import GameResult, Position, Search, BOARD_LEN, SQUARES_NUM
 from position import PositionHelper
 from win_lose_judgment import WinLoseJudgment
+from performance_measurement import SearchPerformance
 
 
 class SearchComputer():
@@ -75,6 +76,7 @@ class SearchComputer():
                     # 前向き探索情報を出して、置いた石は戻して、後ろ向き探索情報を出して、探索終了だぜ☆（＾～＾）
                     if search.info_enable:
                         search.info_forward_leaf(
+                            SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.WIN,
@@ -84,6 +86,7 @@ class SearchComputer():
                     PositionHelper.undo_move(pos)
                     if search.info_enable:
                         search.info_backward(
+                            SearchPerformance.nps(search),
                             pos, addr, GameResult.WIN, None, log)
 
                     return (addr, GameResult.WIN)
@@ -92,6 +95,7 @@ class SearchComputer():
                     # 前向き探索情報を出して、置いた石は戻して、後ろ向き探索情報を出して、探索終了だぜ☆（＾～＾）
                     if search.info_enable:
                         search.info_forward_leaf(
+                            SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.DRAW,
@@ -102,6 +106,7 @@ class SearchComputer():
                     PositionHelper.undo_move(pos)
                     if search.info_enable:
                         search.info_backward(
+                            SearchPerformance.nps(search),
                             pos, addr, GameResult.DRAW, None, log)
 
                     return (addr, GameResult.DRAW)
@@ -109,6 +114,7 @@ class SearchComputer():
                     # まだ続きがあるぜ☆（＾～＾）
                     if search.info_enable:
                         search.info_forward(
+                            SearchPerformance.nps(search),
                             pos, addr, "Search.", log)
 
                 # 相手の番だぜ☆（＾～＾）
@@ -122,12 +128,14 @@ class SearchComputer():
                     # 相手の負けなら、この手で勝ちだぜ☆（＾～＾）後ろ向き探索情報を出して、探索終わり☆（＾～＾）
                     if search.info_enable:
                         search.info_backward(
+                            SearchPerformance.nps(search),
                             pos, addr, GameResult.WIN, "Ok.", log)
                     return (addr, GameResult.WIN)
                 elif opponent_game_result == GameResult.DRAW:
                     # 勝ち負けがずっと見えてないなら☆（＾～＾）後ろ向き探索情報を出して、探索を続けるぜ☆（＾～＾）
                     if search.info_enable:
                         search.info_backward(
+                            SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.DRAW,
@@ -142,6 +150,7 @@ class SearchComputer():
                     # 相手が勝つ手を選んではダメだぜ☆（＾～＾）後ろ向き探索情報を出して、探索を続けるぜ☆（＾～＾）
                     if search.info_enable:
                         search.info_backward(
+                            SearchPerformance.nps(search),
                             pos,
                             addr,
                             GameResult.LOSE,

@@ -70,9 +70,9 @@ class UxiProtocol():
         >>> from uxi_protocol import UxiProtocol
         >>> log = Log()
         >>> pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         >>> pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         [Next 10 move(s) | Go o]
 
         +---+---+---+
@@ -183,7 +183,7 @@ class UxiProtocol():
         >>> pos = Position()
         >>> uxi = UxiProtocol()
         >>> uxi.do(pos, '2', log)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         [Next 2 move(s) | Go x]
 
         +---+---+---+
@@ -234,7 +234,7 @@ class UxiProtocol():
         >>> log = Log()
         >>> pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
         >>> UxiProtocol.undo(pos)
-        >>> pos.pos(log)
+        >>> print(pos.pos())
         [Next 9 move(s) | Go x]
 
         +---+---+---+

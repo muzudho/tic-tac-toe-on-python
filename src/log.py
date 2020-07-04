@@ -1,6 +1,10 @@
 class Log:
     def __init__(self):
-        self.file = 'tic-tac-toe-on-python.log'
+        self._file = 'tic-tac-toe-on-python.log'
+
+    @property
+    def file(self):
+        return self._file
 
     def clear(self):
         """ログを空っぽにします。
@@ -8,7 +12,7 @@ class Log:
         >>> log = Log()
         >>> log.clear()
         """
-        with open(self.file, mode='w', encoding='utf-8') as f:
+        with open(self._file, mode='w', encoding='utf-8') as f:
             f.write("")
 
     def println(self, contents: str):
@@ -16,6 +20,7 @@ class Log:
         >>> from log import Log
         >>> log = Log()
         >>> log.println('Hello!')
+        Hello!
         """
         # 末尾に改行が付くぜ☆（＾～＾）
         print(contents)
@@ -27,5 +32,5 @@ class Log:
         >>> log = Log()
         >>> log.writeln('World!')
         """
-        with open(self.file, mode='a', encoding='utf-8') as f:
+        with open(self._file, mode='a', encoding='utf-8') as f:
             f.write(f'{contents}\n')

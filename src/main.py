@@ -22,20 +22,22 @@ log.println(f'Draw  =|{GameResult.DRAW}|')
 log.println(f'Lose  =|{GameResult.LOSE}|')
 
 pos = Position()
-pos.pos(log)
+log.println(pos.pos())
 pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
 
 search = Search(pos.friend, pos.pieces_num, True)
 log.println(f'pv=|{search.pv(pos)}|')
 Search.info_header(pos, log)
-search.info_forward(pos, 1, 'Hello!', log)
-search.info_forward_leaf(pos, 1, GameResult.WIN, 'Hello!', log)
-search.info_backward(pos, 1, GameResult.WIN, 'Hello!', log)
+search.info_forward(SearchPerformance.nps(search), pos, 1, 'Hello!', log)
+search.info_forward_leaf(SearchPerformance.nps(
+    search), pos, 1, GameResult.WIN, 'Hello!', log)
+search.info_backward(SearchPerformance.nps(search), pos,
+                     1, GameResult.WIN, 'Hello!', log)
 
 PositionHelper.do_move(pos, 1)
-pos.pos(log)
+log.println(pos.pos())
 PositionHelper.undo_move(pos)
-pos.pos(log)
+log.println(pos.pos())
 log.println(f'opponent={PositionHelper.opponent(pos)}')
 
 p = CommandLineParser('Go to the Moon!')
@@ -50,13 +52,13 @@ log.println(f"p.rest=|{p.rest}|")
 uxi = UxiProtocol()
 log.println(f"xfen=|{uxi.to_xfen(pos)}|")
 uxi.do(pos, '2', log)
-pos.pos(log)
+log.println(pos.pos())
 pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
-pos.pos(log)
+log.println(pos.pos())
 pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
-pos.pos(log)
+log.println(pos.pos())
 UxiProtocol.undo(pos)
-pos.pos(log)
+log.println(pos.pos())
 
 pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
 log.println(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
@@ -139,7 +141,7 @@ def main():
             if p.rest != '':
                 pos = UxiProtocol.from_xfen(p.rest, log)
         elif p.starts_with('pos'):
-            pos.pos(log)
+            log.println(pos.pos())
         elif p.starts_with('undo'):
             UxiProtocol.undo(pos)
         elif p.starts_with('uxi'):
