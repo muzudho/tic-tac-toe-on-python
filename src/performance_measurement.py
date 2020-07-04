@@ -2,18 +2,18 @@ import time
 from look_and_model import Search
 
 
-class SearchHelper():
+class SearchPerformance():
     @staticmethod
     def sec(search: "Search"):
         """
         >>> import time
         >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> from performance_measurement import SearchHelper
+        >>> from performance_measurement import SearchPerformance
         >>> pos = Position()
         >>> search = Search(pos.friend, pos.pieces_num, True)
         >>> time.sleep(1)
-        >>> log.print(f'sec={SearchHelper.sec(search)}')
+        >>> log.print(f'sec={SearchPerformance.sec(search)}')
         1.0
 
         Returns
@@ -29,11 +29,11 @@ class SearchHelper():
         >>> import time
         >>> from log import Log
         >>> from look_and_model import Position, Search
-        >>> from performance_measurement import SearchHelper
+        >>> from performance_measurement import SearchPerformance
         >>> pos = Position()
         >>> search = Search(pos.friend, pos.pieces_num, True)
         >>> time.sleep(1)
-        >>> log.print(f'nps={SearchHelper.nps(search)}')
+        >>> log.print(f'nps={SearchPerformance.nps(search)}')
         0.0
 
         Returns
@@ -41,7 +41,7 @@ class SearchHelper():
         int
             １秒間当たりの探索状態ノード数
         """
-        sec = SearchHelper.sec(search)
+        sec = SearchPerformance.sec(search)
         if 0 < sec:
             return search.nodes // sec
         else:

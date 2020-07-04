@@ -72,8 +72,8 @@ Before creating a computer player, let's create a mechanism to measure performan
 
 Finally, let's make a computer player.  
 
-* [ ] 'computer_player.py'
-  * [ ] Search.
-  * [ ] Evaluation.
-* [ ] 'main.py'
-  * [ ] Create "go" command.
+* [x] 'computer_player.py'
+  * [x] Search.
+  * [-] Evaluation. - None.
+* [x] 'main.py'
+  * [x] Create "go" command.

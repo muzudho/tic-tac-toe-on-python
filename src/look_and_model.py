@@ -226,9 +226,9 @@ class Search():
 
         """
         if pos.friend == Piece.NOUGHT:
-            log.print('info nps ...... nodes ...... pv O X O X O X O X O\n')
+            log.print('info nps ...... nodes ...... pv O X O X O X O X O')
         elif pos.friend == Piece.CROSS:
-            log.print('info nps ...... nodes ...... pv X O X O X O X O X\n')
+            log.print('info nps ...... nodes ...... pv X O X O X O X O X')
         else:
             raise ValueError(f'Invalid friend=|{pos.friend}|')
 
@@ -252,7 +252,7 @@ class Search():
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
 
         log.print(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}\n')
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
 
     def info_forward_leaf(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
         """前向き探索で葉に着いたぜ☆（＾～＾）
@@ -280,7 +280,7 @@ class Search():
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
         log.print(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}\n')
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
 
     def info_backward(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
         """後ろ向き探索のときの表示だぜ☆（＾～＾）
@@ -308,4 +308,4 @@ class Search():
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
         log.print(
-            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}\n')
+            f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')

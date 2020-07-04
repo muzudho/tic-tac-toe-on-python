@@ -5,7 +5,8 @@ from position import PositionHelper
 from command_line_parser import CommandLineParser
 from uxi_protocol import UxiProtocol
 from win_lose_judgment import WinLoseJudgment
-from performance_measurement import SearchHelper
+from performance_measurement import SearchPerformance
+from computer_player import SearchComputer
 
 # しょっぱなにプログラムが壊れてないかテストしているぜ☆（＾～＾）
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
@@ -63,8 +64,14 @@ pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
 log.print(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
 
 time.sleep(1)
-log.print(f'sec={SearchHelper.sec(search)}')
-log.print(f'nps={SearchHelper.nps(search)}')
+log.print(f'sec={SearchPerformance.sec(search)}')
+log.print(f'nps={SearchPerformance.nps(search)}')
+
+pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)
+search = Search(pos.friend, pos.pieces_num, True)
+(addr, result) = SearchComputer.go(pos, search, log)
+log.print(f'result=|{result}|')
+log.print(f'bestmove=|{addr}|')
 
 
 def main():
@@ -90,7 +97,9 @@ def main():
 
     # 初期局面
     pos = Position()
-    # TODO info_enable = True
+
+    # info_enable は 'computer_player.py' を実装してから、ここに追加しろだぜ☆（＾～＾）
+    info_enable = True
 
     # [Ctrl]+[C] でループを終了
     while True:
@@ -107,21 +116,22 @@ def main():
             if p.rest != '':
                 UxiProtocol.do(pos, p.rest, log)
 
-            """ TODO go は後回し☆（＾～＾）
-            else if p.starts_with("go"):
-                search = Search: : new(pos.friend, pos.pieces_num, info_enable)
-                let (addr, result) = search.go(& mut pos)
-                        if let Some(addr) = addr {
-                    Log:: println(&format!("info result={:?}", result))
-                    Log: : println(&format!("bestmove {}", addr))
-                        } else {
-                    Log: : println("resign")
-                        }
-            elif p.starts_with('info-off'):
-                info_enable = False
-            elif p.starts_with('info-on'):
-                info_enable = True
-            """
+        # go は 'computer_player.py' を実装してから、ここに追加しろだぜ☆（＾～＾）
+        elif p.starts_with("go"):
+            search = Search(pos.friend, pos.pieces_num, info_enable)
+            (addr, result) = SearchComputer.go(pos, search, log)
+            if addr is not None:
+                log.print(f'info result={result}')
+                log.print(f'bestmove {addr}')
+            else:
+                log.print('resign')
+
+        # info-off は 'computer_player.py' を実装してから、ここに追加しろだぜ☆（＾～＾）
+        elif p.starts_with('info-off'):
+            info_enable = False
+        # info-on は 'computer_player.py' を実装してから、ここに追加しろだぜ☆（＾～＾）
+        elif p.starts_with('info-on'):
+            info_enable = True
 
         elif p.starts_with('position'):
             p.go_next_to('position ')
