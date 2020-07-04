@@ -7,9 +7,9 @@ class Piece(Enum):
     >>> from log import Log
     >>> from look_and_model import Piece
     >>> log = Log()
-    >>> log.print(f'Nought=|{Piece.NOUGHT}|')
+    >>> log.println(f'Nought=|{Piece.NOUGHT}|')
     Nought=|o|
-    >>> log.print(f'Cross =|{Piece.CROSS}|')
+    >>> log.println(f'Cross =|{Piece.CROSS}|')
     Cross =|x|
     """
 
@@ -34,11 +34,11 @@ class GameResult(Enum):
     >>> from log import Log
     >>> from look_and_model import GameResult
     >>> log = Log()
-    >>> log.print(f'Win =|{GameResult.WIN}|')
+    >>> log.println(f'Win =|{GameResult.WIN}|')
     Win   =|win|
-    >>> log.print(f'Draw=|{GameResult.DRAW}|')
+    >>> log.println(f'Draw=|{GameResult.DRAW}|')
     Draw  =|draw|
-    >>> log.print(f'Lose=|{GameResult.LOSE}|')
+    >>> log.println(f'Lose=|{GameResult.LOSE}|')
     Lose  =|lose|
     """
 
@@ -132,9 +132,9 @@ class Position():
             else:
                 return f" {self.board[index]} "
 
-        log.print(
+        log.println(
             f'[Next {self.pieces_num + 1} move(s) | Go {self.friend}]\n')
-        log.print(
+        log.println(
             """+---+---+---+
 |{0}|{1}|{2}| マスを選んでください。例 `do 7`
 +---+---+---+
@@ -161,9 +161,9 @@ class Position():
         win o
         """
         if result == GameResult.WIN:
-            log.print(f'win {winner}')
+            log.println(f'win {winner}')
         elif result == GameResult.DRAW:
-            log.print(f'draw')
+            log.println(f'draw')
 
 
 class Search():
@@ -200,7 +200,7 @@ class Search():
         >>> log = Log()
         >>> pos = Position()
         >>> search = Search(pos.friend,pos.pieces_num,True)
-        >>> log.print(f'pv={search.pv(pos)}')
+        >>> log.println(f'pv={search.pv(pos)}')
         pv=||
 
         Returns
@@ -226,9 +226,9 @@ class Search():
 
         """
         if pos.friend == Piece.NOUGHT:
-            log.print('info nps ...... nodes ...... pv O X O X O X O X O')
+            log.println('info nps ...... nodes ...... pv O X O X O X O X O')
         elif pos.friend == Piece.CROSS:
-            log.print('info nps ...... nodes ...... pv X O X O X O X O X')
+            log.println('info nps ...... nodes ...... pv X O X O X O X O X')
         else:
             raise ValueError(f'Invalid friend=|{pos.friend}|')
 
@@ -251,7 +251,7 @@ class Search():
             1 else f'height {pos.pieces_num + 1}'
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
 
-        log.print(
+        log.println(
             f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | ->   to {height} |       |      |{comment_str}')
 
     def info_forward_leaf(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
@@ -279,7 +279,7 @@ class Search():
         else:
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
-        log.print(
+        log.println(
             f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} | {friend_str} [{addr}] | .       {height} |       |{result_str}|{comment_str}')
 
     def info_backward(self, pos: "Position", addr: int, result: "GameResult", comment: str, log: "Log"):
@@ -307,5 +307,5 @@ class Search():
         else:
             raise ValueError(f'Invalid GameResult={result}')
         comment_str = f' {friend_str} "{comment}"' if comment != "" else ""
-        log.print(
+        log.println(
             f'info nps {nps: >6} nodes {nodes: >6} pv {pv: <17} |       | <- from {height} | {friend_str} [{addr}] |{result_str}|{comment_str}')

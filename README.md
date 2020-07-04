@@ -70,7 +70,7 @@ Before creating a computer player, let's create a mechanism to measure performan
   * [x] Seconds. - Stopwatch.
   * [x] Node per second.
 
-Finally, let's make a computer player.  
+Finally, let's make a computer player. (You can code in 1.5 hours)  
 
 * [x] 'computer_player.py'
   * [x] Search.

@@ -13,7 +13,7 @@ class SearchPerformance():
         >>> pos = Position()
         >>> search = Search(pos.friend, pos.pieces_num, True)
         >>> time.sleep(1)
-        >>> log.print(f'sec={SearchPerformance.sec(search)}')
+        >>> log.println(f'sec={SearchPerformance.sec(search)}')
         1.0
 
         Returns
@@ -33,7 +33,7 @@ class SearchPerformance():
         >>> pos = Position()
         >>> search = Search(pos.friend, pos.pieces_num, True)
         >>> time.sleep(1)
-        >>> log.print(f'nps={SearchPerformance.nps(search)}')
+        >>> log.println(f'nps={SearchPerformance.nps(search)}')
         0.0
 
         Returns

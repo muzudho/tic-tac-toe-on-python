@@ -18,7 +18,7 @@ class UxiProtocol():
         >>> log = Log()
         >>> pos = Position()
         >>> uxi = UxiProtocol()
-        >>> log.print(f"xfen=|{uxi.to_xfen(pos)}|")
+        >>> log.println(f"xfen=|{uxi.to_xfen(pos)}|")
         xfen=|xfen 3/3/3 o|
 
         Returns
@@ -147,7 +147,7 @@ class UxiProtocol():
                     pos.starting_pieces_num = pos.pieces_num
                     machine_state = MachineState.PHASE
                 else:
-                    log.print(f'Error   | xfen starting_board error: {ch}')
+                    log.println(f'Error   | xfen starting_board error: {ch}')
                     return None
 
             elif machine_state == MachineState.PHASE:
@@ -156,7 +156,7 @@ class UxiProtocol():
                 elif ch == 'o':
                     pos.friend = Piece.NOUGHT
                 else:
-                    log.print(f'Error   | xfen phase error: {ch}')
+                    log.println(f'Error   | xfen phase error: {ch}')
                     return None
 
                 # 一時記憶。
@@ -204,18 +204,16 @@ class UxiProtocol():
         try:
             addr = int(arg_str)
         except ValueError:
-            log.print(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 引数=|{arg_str}|')
+            log.println(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 引数=|{arg_str}|')
             return
 
-        """
         # TODO 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
         if addr < 1 or 9 < addr:
-            log.print(f'Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={addr}')
+            log.println(f'Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={addr}')
             return
         elif pos.board[addr] is not None:
-            log.print(f'Error   | 移動先のマスに駒があってはダメだぜ☆（＾～＾） 番地={addr}')
+            log.println(f'Error   | 移動先のマスに駒があってはダメだぜ☆（＾～＾） 番地={addr}')
             return
-        """
 
         PositionHelper.do_move(pos, addr)
 

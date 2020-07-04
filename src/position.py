@@ -79,7 +79,7 @@ class PositionHelper():
         >>> from position import PositionHelper
         >>> log = Log()
         >>> pos = Position()
-        >>> log.print(f'opponent=|{PositionHelper.opponent(pos)}|')
+        >>> log.println(f'opponent=|{PositionHelper.opponent(pos)}|')
         opponent=|x|
 
         Returns

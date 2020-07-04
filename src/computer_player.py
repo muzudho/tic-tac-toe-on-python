@@ -19,8 +19,8 @@ class SearchComputer():
         >>> pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)
         >>> search = Search(pos.friend, pos.pieces_num, True)
         >>> (addr, result) = SearchComputer.go(pos, search, log)
-        >>> log.print(f'result=|{result}|')
-        >>> log.print(f'bestmove=|{addr}|')
+        >>> log.println(f'result=|{result}|')
+        >>> log.println(f'bestmove=|{addr}|')
         info nps ...... nodes ...... pv X O X O X O X O X
         info nps      0 nodes      1 pv 6                 | - [6] | ->   to height 8 |       |      | - "Search."
         info nps      0 nodes      2 pv 6 8               | + [8] | ->   to height 9 |       |      | + "Search."

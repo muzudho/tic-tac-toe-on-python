@@ -12,21 +12,21 @@ from computer_player import SearchComputer
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
 log = Log()
 log.clear()
-log.print('Hello!\n')
-log.write('World!\n')
+log.println('Hello!\n')
+log.writeln('World!\n')
 
-log.print(f'Nought=|{Piece.NOUGHT}|')
-log.print(f'Cross =|{Piece.CROSS}|')
-log.print(f'Win   =|{GameResult.WIN}|')
-log.print(f'Draw  =|{GameResult.DRAW}|')
-log.print(f'Lose  =|{GameResult.LOSE}|')
+log.println(f'Nought=|{Piece.NOUGHT}|')
+log.println(f'Cross =|{Piece.CROSS}|')
+log.println(f'Win   =|{GameResult.WIN}|')
+log.println(f'Draw  =|{GameResult.DRAW}|')
+log.println(f'Lose  =|{GameResult.LOSE}|')
 
 pos = Position()
 pos.pos(log)
 pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
 
 search = Search(pos.friend, pos.pieces_num, True)
-log.print(f'pv=|{search.pv(pos)}|')
+log.println(f'pv=|{search.pv(pos)}|')
 Search.info_header(pos, log)
 search.info_forward(pos, 1, 'Hello!', log)
 search.info_forward_leaf(pos, 1, GameResult.WIN, 'Hello!', log)
@@ -36,19 +36,19 @@ PositionHelper.do_move(pos, 1)
 pos.pos(log)
 PositionHelper.undo_move(pos)
 pos.pos(log)
-log.print(f'opponent={PositionHelper.opponent(pos)}')
+log.println(f'opponent={PositionHelper.opponent(pos)}')
 
 p = CommandLineParser('Go to the Moon!')
-log.print(f"Go to=|{p.starts_with('Go to')}|")
-log.print(f"Goto =|{p.starts_with('Goto')}|")
-log.print(f"p.starts=|{p.starts}|")
-log.print(f"p.rest=|{p.rest}|")
+log.println(f"Go to=|{p.starts_with('Go to')}|")
+log.println(f"Goto =|{p.starts_with('Goto')}|")
+log.println(f"p.starts=|{p.starts}|")
+log.println(f"p.rest=|{p.rest}|")
 p.go_next_to('Go to')
-log.print(f"p.starts=|{p.starts}|")
-log.print(f"p.rest=|{p.rest}|")
+log.println(f"p.starts=|{p.starts}|")
+log.println(f"p.rest=|{p.rest}|")
 
 uxi = UxiProtocol()
-log.print(f"xfen=|{uxi.to_xfen(pos)}|")
+log.println(f"xfen=|{uxi.to_xfen(pos)}|")
 uxi.do(pos, '2', log)
 pos.pos(log)
 pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
@@ -59,19 +59,19 @@ UxiProtocol.undo(pos)
 pos.pos(log)
 
 pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
-log.print(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
+log.println(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
 pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
-log.print(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
+log.println(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
 
 time.sleep(1)
-log.print(f'sec={SearchPerformance.sec(search)}')
-log.print(f'nps={SearchPerformance.nps(search)}')
+log.println(f'sec={SearchPerformance.sec(search)}')
+log.println(f'nps={SearchPerformance.nps(search)}')
 
 pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)
 search = Search(pos.friend, pos.pieces_num, True)
 (addr, result) = SearchComputer.go(pos, search, log)
-log.print(f'result=|{result}|')
-log.print(f'bestmove=|{addr}|')
+log.println(f'result=|{result}|')
+log.println(f'bestmove=|{addr}|')
 
 
 def main():
@@ -82,7 +82,7 @@ def main():
     log.clear()
 
     # 最初は全部のコマンドを実装できないが、だんだん増やしていけだぜ☆（＾～＾）
-    log.print("""きふわらべの〇×ゲーム
+    log.println("""きふわらべの〇×ゲーム
 
 コマンド:
 `do 7` - 手番のプレイヤーが、 7 番地に印を付けます。
@@ -121,10 +121,10 @@ def main():
             search = Search(pos.friend, pos.pieces_num, info_enable)
             (addr, result) = SearchComputer.go(pos, search, log)
             if addr is not None:
-                log.print(f'info result={result}')
-                log.print(f'bestmove {addr}')
+                log.println(f'info result={result}')
+                log.println(f'bestmove {addr}')
             else:
-                log.print('resign')
+                log.println('resign')
 
         # info-off は 'computer_player.py' を実装してから、ここに追加しろだぜ☆（＾～＾）
         elif p.starts_with('info-off'):
@@ -142,9 +142,9 @@ def main():
         elif p.starts_with('undo'):
             UxiProtocol.undo(pos)
         elif p.starts_with('xfen'):
-            log.print(UxiProtocol.to_xfen(pos))
+            log.println(UxiProtocol.to_xfen(pos))
         else:
-            log.print(f'Debug   | Invalid command=|{p.rest}|')
+            log.println(f'Debug   | Invalid command=|{p.rest}|')
 
 
 main()

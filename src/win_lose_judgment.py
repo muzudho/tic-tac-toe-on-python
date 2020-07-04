@@ -15,7 +15,7 @@ class WinLoseJudgment():
         >>> from win_lose_judgment import WinLoseJudgment
         >>> log = Log()
         >>> pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
-        >>> log.print(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
+        >>> log.println(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
         win=|True|
 
         Returns
@@ -53,7 +53,7 @@ class WinLoseJudgment():
         >>> from win_lose_judgment import WinLoseJudgment
         >>> log = Log()
         >>> pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
-        >>> log.print(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
+        >>> log.println(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
         draw=|True|
 
         """

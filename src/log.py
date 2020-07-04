@@ -8,23 +8,24 @@ class Log:
         >>> log = Log()
         >>> log.clear()
         """
-        with open(self.file, mode='w') as f:
+        with open(self.file, mode='w', encoding='utf-8') as f:
             f.write("")
 
-    def print(self, contents: str):
+    def println(self, contents: str):
         """表示かつ追加書込み。
         >>> from log import Log
         >>> log = Log()
-        >>> log.print('Hello!')
+        >>> log.println('Hello!')
         """
+        # 末尾に改行が付くぜ☆（＾～＾）
         print(contents)
-        self.write(contents)
+        self.writeln(contents)
 
-    def write(self, contents: str):
+    def writeln(self, contents: str):
         """追加書込み。
         >>> from log import Log
         >>> log = Log()
-        >>> log.write('World!')
+        >>> log.writeln('World!')
         """
-        with open(self.file, mode='a') as f:
-            f.write(contents)
+        with open(self.file, mode='a', encoding='utf-8') as f:
+            f.write(f'{contents}\n')
