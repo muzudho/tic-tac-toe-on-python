@@ -2,7 +2,9 @@
 
 ○×ゲームだぜ☆（＾～＾）  
 
-* [Rust ver](https://github.com/muzudho/tic-tac-toe)
+* 他のプログラム言語
+  * [プログラミング入門動画](https://www.youtube.com/playlist?list=PLllMJuAE0iK6kSsi96OBXBgNZHFg7KB9f) - 小学生は変女に Scratch でも教えられてろだぜ☆（＾～＾）
+  * [Rust ver](https://github.com/muzudho/tic-tac-toe)
 
 ## How to make tic tac toe?
 
@@ -63,7 +65,7 @@ Before you make a computer player, let's judge the outcome. And let's test.
 * [x] 'win_lose_judgment.py' (You can code in 15 minutes)
   * [x] Win.
   * [x] Draw - Not win, not lose, can not play.
-  * [-] Lose. - Not win is lose.
+  * [ ] Lose. - Not win is lose.
 * [x] 'uxi_protocol.py' (You can code in 1.5 hours)
   * [x] Do. Winning/losing decisions.
 
@@ -77,6 +79,6 @@ Finally, let's make a computer player. (You can code in 1.5 hours)
 
 * [x] 'computer_player.py'
   * [x] Search.
-  * [-] Evaluation. - None.
+  * [ ] Evaluation. - None.
 * [x] 'main.py'
   * [x] Create "go" command.
