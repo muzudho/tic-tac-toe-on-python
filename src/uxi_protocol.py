@@ -220,10 +220,10 @@ class UxiProtocol():
         # 勝ち負け判定☆（*＾～＾*）
         # これは PositionHelper, WinLoseJudgment を作ってから実装しろだぜ☆（＾～＾）
         if WinLoseJudgment.is_opponent_win(pos):
-            pos.print_result(
-                GameResult.WIN, PositionHelper.opponent(pos), log)
+            log.println(Position.result(
+                GameResult.WIN, PositionHelper.opponent(pos)))
         elif WinLoseJudgment.is_draw(pos):
-            pos.print_result(GameResult.DRAW, None, log)
+            log.println(Position.result(GameResult.DRAW, None))
 
     @staticmethod
     def undo(pos: "Position"):

@@ -155,17 +155,24 @@ class Position():
         )
         return s
 
-    def print_result(self, result: "GameResult", winner: "Piece", log: "Log"):
+    @staticmethod
+    def result(result: "GameResult", winner: "Piece"):
         """着いていれば勝敗を表示するぜ☆（＾～＾） 負けが表示されるケースは無い☆（＾～＾）
         >>> from look_and_model import Position
-        >>> pos = Position()
-        >>> pos.print_result(GameResult.WIN, Piece.NOUGHT, log)
+        >>> print(Position.result(GameResult.WIN, Piece.NOUGHT))
         win o
+
+        Returns
+        -------
+        str:
+            着いていれば、勝敗
         """
         if result == GameResult.WIN:
-            log.println(f'win {winner}')
+            return f'win {winner}'
         elif result == GameResult.DRAW:
-            log.println(f'draw')
+            return f'draw'
+        else:
+            None
 
 
 class Search():
