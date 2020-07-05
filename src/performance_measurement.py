@@ -45,4 +45,5 @@ class SearchPerformance():
         if 0 < sec:
             return search.nodes // sec
         else:
-            return 0
+            # 1秒未満で全部探索してしまった☆（＾～＾） 本当は もっと多いと思うんだが☆（＾～＾）
+            return search.nodes

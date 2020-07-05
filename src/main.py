@@ -125,7 +125,8 @@ def main():
             search = Search(pos.friend, pos.pieces_num, info_enable)
             (addr, result) = SearchComputer.go(pos, search, log)
             if addr is not None:
-                log.println(f'info result={result}')
+                log.println(
+                    f'info result={result} nps={SearchPerformance.nps(search)}')
                 log.println(f'bestmove {addr}')
             else:
                 log.println('resign')

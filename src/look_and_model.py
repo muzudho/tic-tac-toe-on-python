@@ -198,7 +198,7 @@ class Search():
         [Stopwatch In Python](https://stackoverflow.com/questions/5890304/stopwatch-in-python)
         """
         self.stopwatch = time.time()
-        self.info_enable = True
+        self.info_enable = info_enable
 
     # TODO go()
 
