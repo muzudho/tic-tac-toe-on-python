@@ -28,11 +28,11 @@ log.println(Position.result(GameResult.WIN, Piece.NOUGHT))
 search = Search(pos.friend, pos.pieces_num, True)
 log.println(f'pv=|{search.pv(pos)}|')
 log.println(Search.info_header(pos))
+# 適当な内容を入れて、入れ物として、入れた中身を見せてくれるか、チェックしろだぜ☆（＾～＾）
 log.println(search.info_forward(
-    SearchPerformance.nps(search), pos, 1, 'Hello!'))
-log.println(search.info_forward_leaf(SearchPerformance.nps(
-    search), pos, 1, GameResult.WIN, 'Hello!'))
-log.println(search.info_backward(SearchPerformance.nps(search), pos,
+    123, pos, 1, 'Hello!'))
+log.println(search.info_forward_leaf(456, pos, 1, GameResult.WIN, 'Hello!'))
+log.println(search.info_backward(789, pos,
                                  1, GameResult.WIN, 'Hello!'))
 
 PositionHelper.do_move(pos, 1)
