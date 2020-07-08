@@ -10,12 +10,14 @@ from computer_player import SearchComputer
 
 # しょっぱなにプログラムが壊れてないかテストしているぜ☆（＾～＾）
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
+# Step 1.
 log = Log()
 log.clear()
 log.writeln('Hello, world!!')
 log.println('こんにちわ、世界！！')
 # こんにちわ、世界！！
 
+# Step 2.
 log.println(f'Nought=|{Piece.NOUGHT}|')
 # Nought=|o|
 log.println(f'Cross =|{Piece.CROSS}|')
@@ -56,6 +58,7 @@ log.println(search.info_backward(789, pos,
                                  1, GameResult.WIN, 'Hello!'))
 # info nps      0 nodes      0 pv                   |       | <- from height 0 | + [1] | win  | + "Hello!"
 
+# Step 3.
 PositionHelper.do_move(pos, 1)
 log.println(pos.pos())
 # [Next 2 move(s) | Go x]
@@ -80,6 +83,7 @@ log.println(pos.pos())
 #         +---+---+---+
 log.println(f'opponent={PositionHelper.opponent(pos)}')
 
+# Step 4.
 p = CommandLineParser('Go to the Moon!')
 log.println(f"Go to=|{p.starts_with('Go to')}|")
 # Go to   =|True|
@@ -95,6 +99,7 @@ log.println(f'p.starts=|{p.starts}|')
 log.println(f'p.rest=|{p.rest}|')
 # p.rest  =| the Moon!|
 
+# Step 5.
 uxi = UxiProtocol()
 log.println(f"xfen=|{uxi.to_xfen(pos)}|")
 # xfen=|xfen 3/3/3 o|
@@ -144,6 +149,8 @@ log.println(pos.pos())
 # | x | o | o |    1 2 3
 # +---+---+---+
 
+# Step 6.
+# Step 7.
 pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
 log.println(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
 # win=|True|
@@ -151,12 +158,14 @@ pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
 log.println(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
 # draw=|True|
 
+# Step 8.
 time.sleep(1)
 log.println(f'sec={SearchPerformance.sec(search)}')
 # sec=1.0
 log.println(f'nps={SearchPerformance.nps(search)}')
 # nps=0.0
 
+# Step 9.
 pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)
 search = Search(pos.friend, pos.pieces_num, True)
 (addr, result) = SearchComputer.go(pos, search, log)
