@@ -12,69 +12,177 @@ from computer_player import SearchComputer
 # こんなとこに書かない方がいいが、テストを毎回するのが めんどくさいんで 実行するたびにテストさせているぜ☆（＾～＾）
 log = Log()
 log.clear()
-log.println('Hello!\n')
-log.writeln('World!\n')
+log.writeln('Hello, world!!')
+log.println('こんにちわ、世界！！')
+# こんにちわ、世界！！
 
 log.println(f'Nought=|{Piece.NOUGHT}|')
+# Nought=|o|
 log.println(f'Cross =|{Piece.CROSS}|')
+# Cross =|x|
 log.println(f'Win   =|{GameResult.WIN}|')
+# Win   =|win|
 log.println(f'Draw  =|{GameResult.DRAW}|')
+# Draw  =|draw|
 log.println(f'Lose  =|{GameResult.LOSE}|')
+# Lose  =|lose|
 
 pos = Position()
 log.println(pos.pos())
+# [Next 1 move(s) | Go o]
+#
+#         +---+---+---+
+#         |   |   |   | マスを選んでください。例 `do 7`
+#         +---+---+---+
+#         |   |   |   |    7 8 9
+#         +---+---+---+    4 5 6
+#         |   |   |   |    1 2 3
+#         +---+---+---+
 log.println(Position.result(GameResult.WIN, Piece.NOUGHT))
+# win o
 
 search = Search(pos.friend, pos.pieces_num, True)
 log.println(f'pv=|{search.pv(pos)}|')
+# pv=||
 log.println(Search.info_header(pos))
+# info nps ...... nodes ...... pv O X O X O X O X O
 # 適当な内容を入れて、入れ物として、入れた中身を見せてくれるか、チェックしろだぜ☆（＾～＾）
 log.println(search.info_forward(
     123, pos, 1, 'Hello!'))
+# info nps      0 nodes      0 pv                   | + [1] | ->   to height 1 |       |      | + "Hello!"
 log.println(search.info_forward_leaf(456, pos, 1, GameResult.WIN, 'Hello!'))
+# info nps      0 nodes      0 pv                   | + [1] | .       height 0 |       | win  | + "Hello!"
 log.println(search.info_backward(789, pos,
                                  1, GameResult.WIN, 'Hello!'))
+# info nps      0 nodes      0 pv                   |       | <- from height 0 | + [1] | win  | + "Hello!"
 
 PositionHelper.do_move(pos, 1)
 log.println(pos.pos())
+# [Next 2 move(s) | Go x]
+#
+#         +---+---+---+
+#         |   |   |   | マスを選んでください。例 `do 7`
+#         +---+---+---+
+#         |   |   |   |    7 8 9
+#         +---+---+---+    4 5 6
+#         | o |   |   |    1 2 3
+#         +---+---+---+
 PositionHelper.undo_move(pos)
 log.println(pos.pos())
+# [Next 1 move(s) | Go o]
+#
+#         +---+---+---+
+#         |   |   |   | マスを選んでください。例 `do 7`
+#         +---+---+---+
+#         |   |   |   |    7 8 9
+#         +---+---+---+    4 5 6
+#         |   |   |   |    1 2 3
+#         +---+---+---+
 log.println(f'opponent={PositionHelper.opponent(pos)}')
 
 p = CommandLineParser('Go to the Moon!')
 log.println(f"Go to=|{p.starts_with('Go to')}|")
+# Go to   =|True|
 log.println(f"Goto =|{p.starts_with('Goto')}|")
-log.println(f"p.starts=|{p.starts}|")
-log.println(f"p.rest=|{p.rest}|")
+# Goto    =|False|
+log.println(f'p.starts=|{p.starts}|')
+# p.starts=|0|
+log.println(f'p.rest=|{p.rest}|')
+# p.rest  =|Go to the Moon!|
 p.go_next_to('Go to')
-log.println(f"p.starts=|{p.starts}|")
-log.println(f"p.rest=|{p.rest}|")
+log.println(f'p.starts=|{p.starts}|')
+# p.starts=|5|
+log.println(f'p.rest=|{p.rest}|')
+# p.rest  =| the Moon!|
 
 uxi = UxiProtocol()
 log.println(f"xfen=|{uxi.to_xfen(pos)}|")
+# xfen=|xfen 3/3/3 o|
 uxi.do(pos, '2', log)
 log.println(pos.pos())
+# [Next 2 move(s) | Go x]
+#
+# +---+---+---+
+# |   |   |   | マスを選んでください。例 `do 7`
+# +---+---+---+
+# |   |   |   |    7 8 9
+# +---+---+---+    4 5 6
+# |   | o |   |    1 2 3
+# +---+---+---+
 pos = UxiProtocol.from_xfen('xfen xo1/xox/oxo o', log)
 log.println(pos.pos())
+# [Next 9 move(s) | Go o]
+#
+# +---+---+---+
+# | x | o |   | マスを選んでください。例 `do 7`
+# +---+---+---+
+# | x | o | x |    7 8 9
+# +---+---+---+    4 5 6
+# | o | x | o |    1 2 3
+# +---+---+---+
 pos = UxiProtocol.from_xfen('xfen 3/3/3 x moves 1 7 4 8 9 3 6 2 5', log)
 log.println(pos.pos())
+# win x
+# [Next 10 move(s) | Go o]
+#
+# +---+---+---+
+# | o | o | x | マスを選んでください。例 `do 7`
+# +---+---+---+
+# | x | x | x |    7 8 9
+# +---+---+---+    4 5 6
+# | x | o | o |    1 2 3
+# +---+---+---+
 UxiProtocol.undo(pos)
 log.println(pos.pos())
+# [Next 9 move(s) | Go x]
+#
+# +---+---+---+
+# | o | o | x | マスを選んでください。例 `do 7`
+# +---+---+---+
+# | x |   | x |    7 8 9
+# +---+---+---+    4 5 6
+# | x | o | o |    1 2 3
+# +---+---+---+
 
 pos = UxiProtocol.from_xfen('xfen o2/xox/oxo x', log)
 log.println(f'win=|{WinLoseJudgment.is_opponent_win(pos)}|')
+# win=|True|
 pos = UxiProtocol.from_xfen('xfen xox/oxo/oxo x', log)
 log.println(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
+# draw=|True|
 
 time.sleep(1)
 log.println(f'sec={SearchPerformance.sec(search)}')
+# sec=1.0
 log.println(f'nps={SearchPerformance.nps(search)}')
+# nps=0.0
 
 pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)
 search = Search(pos.friend, pos.pieces_num, True)
 (addr, result) = SearchComputer.go(pos, search, log)
+# info nps ...... nodes ...... pv O X O X O X O X O
+# info nps      1 nodes      1 pv 6                 | - [6] | ->   to height 8 |       |      | - "Search."
+# info nps      2 nodes      2 pv 6 8               | + [8] | ->   to height 9 |       |      | + "Search."
+# info nps      3 nodes      3 pv 6 8 9             | - [9] | .       height 9 |       | draw | - "It's ok."
+# info nps      3 nodes      3 pv 6 8               |       | <- from height 8 | + [9] | draw |
+# info nps      3 nodes      3 pv 6                 |       | <- from height 7 | - [8] | draw | - "Fmmm."
+# info nps      4 nodes      4 pv 6 9               | + [9] | ->   to height 9 |       |      | + "Search."
+# info nps      5 nodes      5 pv 6 9 8             | - [8] | .       height 9 |       | draw | - "It's ok."
+# info nps      5 nodes      5 pv 6 9               |       | <- from height 8 | + [8] | draw |
+# info nps      5 nodes      5 pv 6                 |       | <- from height 7 | - [9] | draw | - "Fmmm."
+# info nps      5 nodes      5 pv                   |       | <- from height 6 | + [6] | draw | + "Fmmm."
+# info nps      6 nodes      6 pv 8                 | - [8] | ->   to height 8 |       |      | - "Search."
+# info nps      7 nodes      7 pv 8 6               | + [6] | .       height 8 |       | win  | + "Hooray!"
+# info nps      7 nodes      7 pv 8                 |       | <- from height 7 | - [6] | win  |
+# info nps      7 nodes      7 pv                   |       | <- from height 6 | + [8] | lose | + "Resign."
+# info nps      8 nodes      8 pv 9                 | - [9] | ->   to height 8 |       |      | - "Search."
+# info nps      9 nodes      9 pv 9 6               | + [6] | .       height 8 |       | win  | + "Hooray!"
+# info nps      9 nodes      9 pv 9                 |       | <- from height 7 | - [6] | win  |
+# info nps      9 nodes      9 pv                   |       | <- from height 6 | + [9] | lose | + "Resign."
 log.println(f'result=|{result}|')
+# result=|draw|
 log.println(f'bestmove=|{addr}|')
+# bestmove=|6|
 
 
 def main():

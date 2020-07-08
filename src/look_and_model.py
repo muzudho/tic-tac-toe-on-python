@@ -135,7 +135,7 @@ class Position():
             else:
                 return f" {self.board[index]} "
 
-        s = f'[Next {self.pieces_num + 1} move(s) | Go {self.friend}]\n'
+        s = f'[Next {self.pieces_num + 1} move(s) | Go {self.friend}]\n\n'
         s += """+---+---+---+
 |{0}|{1}|{2}| マスを選んでください。例 `do 7`
 +---+---+---+

@@ -20,11 +20,11 @@ class CommandLineParser():
         >>> from command_line_parser import CommandLineParser
         >>> log = Log()
         >>> p = CommandLineParser('Go to the Moon!')
-        >>> log.println(f"p.rest=|{p.rest}|")
-        p.rest=|Go to the Moon!|
+        >>> log.println(f'p.rest=|{p.rest}|')
+        p.rest  =|Go to the Moon!|
         >>> p.go_next_to('Go to')
-        >>> log.println(f"p.rest=|{p.rest}|")
-        p.rest=| the Moon!|
+        >>> log.println(f'p.rest=|{p.rest}|')
+        p.rest  =| the Moon!|
 
         Returns
         -------
@@ -43,9 +43,9 @@ class CommandLineParser():
         >>> log = Log()
         >>> p = CommandLineParser('Go to the Moon!')
         >>> log.println(f"Go to=|{p.starts_with('Go to')}|")
-        Go to=|True|
+        Go to   =|True|
         >>> log.println(f"Goto =|{p.starts_with('Goto')}|")
-        Goto =|False|
+        Goto    =|False|
 
         Returns
         -------
@@ -61,10 +61,10 @@ class CommandLineParser():
         >>> from command_line_parser import CommandLineParser
         >>> log = Log()
         >>> p = CommandLineParser('Go to the Moon!')
-        >>> log.println(f"p.starts=|{p.starts}|")
+        >>> log.println(f'p.starts=|{p.starts}|')
         p.starts=|0|
         >>> p.go_next_to('Go to')
-        >>> log.println(f"p.starts=|{p.starts}|")
+        >>> log.println(f'p.starts=|{p.starts}|')
         p.starts=|5|
         """
         self._starts += len(expected)
