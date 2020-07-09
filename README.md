@@ -4,7 +4,7 @@
 
 * [プログラミング入門動画](https://www.youtube.com/playlist?list=PLllMJuAE0iK6kSsi96OBXBgNZHFg7KB9f) - 小学生は変女に Scratch でも教えられてろだぜ☆（＾～＾）
 * 他のプログラム言語で○×ゲーム
-  * [Go ver](https://github.com/muzudho/tic-tac-toe-golang)
+  * [Go ver](https://github.com/muzudho/tic-tac-toe-on-golang)
   * [Rust ver](https://github.com/muzudho/tic-tac-toe)
 
 ## How to make tic tac toe?
