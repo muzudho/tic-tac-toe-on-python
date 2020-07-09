@@ -159,11 +159,14 @@ log.println(f'draw=|{WinLoseJudgment.is_draw(pos)}|')
 # draw=|True|
 
 # Step 8.
+# 探索してないんだから、 nodes も nps も 0 になるはずだよな☆（＾～＾）
 time.sleep(1)
-log.println(f'sec={SearchPerformance.sec(search)}')
-# sec=1.0
-log.println(f'nps={SearchPerformance.nps(search)}')
-# nps=0.0
+log.println(f'nodes={search.nodes}')
+# nodes=0
+log.println(f'sec  ={SearchPerformance.sec(search)}')
+# sec  =1.0
+log.println(f'nps  ={SearchPerformance.nps(search)}')
+# nps  =0.0
 
 # Step 9.
 pos = UxiProtocol.from_xfen('xfen 3/3/3 o moves 1 5 2 3 7 4', log)

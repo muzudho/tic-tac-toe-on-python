@@ -200,8 +200,6 @@ class Search():
         self.stopwatch = time.time()
         self.info_enable = info_enable
 
-    # TODO go()
-
     def pv(self, pos: "Position"):
         """Principal variation.
         >>> from log import Log

@@ -207,7 +207,7 @@ class UxiProtocol():
             log.println(f'Error   | `do 数字` で入力してくれだぜ☆（＾～＾） 引数=|{arg_str}|')
             return
 
-        # TODO 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
+        # 合法手判定☆（＾～＾）移動先のマスに駒があってはダメ☆（＾～＾）
         if addr < 1 or 9 < addr:
             log.println(f'Error   | 1～9 で指定してくれだぜ☆（＾～＾） 番地={addr}')
             return
