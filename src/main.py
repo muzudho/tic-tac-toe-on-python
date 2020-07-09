@@ -264,6 +264,8 @@ def main():
                 pos = UxiProtocol.from_xfen(p.rest, log)
         elif p.starts_with('pos'):
             log.println(pos.pos())
+        elif p.starts_with('quit'):
+            return
         elif p.starts_with('undo'):
             UxiProtocol.undo(pos)
         elif p.starts_with('uxi'):
